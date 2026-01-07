@@ -3,8 +3,10 @@ import { AiFillAudio, AiFillBulb, AiFillFileText } from 'react-icons/ai'
 import { BiCrown } from 'react-icons/bi'
 import { BsStarFill, BsStarHalf } from 'react-icons/bs'
 import { RiLeafLine } from 'react-icons/ri'
-import './HomePage.css'
+import './Homepage.css'
 import { useState, useEffect } from 'react'
+import Modal from '../Modal/Modal'
+
 
 
 const headings = ['Enhance your knowledge', 'Achieve greater success',
@@ -13,9 +15,11 @@ const headings = ['Enhance your knowledge', 'Achieve greater success',
 const heading = ['Expand your learning', 'Accomplish your goals',
   'Strengthen your vitality','Become a better caregiver','Improve your mood',
   'Maximize your abilities']
-const Home = () => {
+ 
+const Homepage = () => {
    const [activeIndex, setActiveIndex] = useState(0);
    const [active, setActive] = useState(0)
+   const [isModalOpen, setIsModalOpen] = useState(false);
   useEffect(() => {
     const interval = setInterval(() => {
     setActiveIndex((prev) => (prev + 1) % headings.length);
@@ -38,7 +42,7 @@ const Home = () => {
           <img className="nav__img" src='/booksnacks.png' alt="logo" />
         </figure>
         <ul className="nav__list--wrapper">
-          <li className="nav__list nav__list--login">Login</li>
+          <li className="nav__list nav__list--login" onClick={() => setIsModalOpen(true)}>Login</li> 
           <li className="nav__list nav__list--mobile">About</li>
           <li className="nav__list nav__list--mobile">Contact</li>
           <li className="nav__list nav__list--mobile">Help</li>
@@ -46,6 +50,8 @@ const Home = () => {
       </div>
     </nav>
     <section id="landing">
+      <Modal isOpen={isModalOpen} 
+        onClose={() => setIsModalOpen(false)} />
       <div className="container">
         <div className="row">
           <div className="landing__wrapper">
@@ -134,7 +140,7 @@ const Home = () => {
                 </div>
               </div>
             </div>
-           </div>
+           
           
           </div>
 
@@ -174,7 +180,7 @@ const Home = () => {
             ))}
            </div>
             </div>
-              
+              </div>
           </div>
         </div>
   
@@ -276,6 +282,9 @@ const Home = () => {
             <div className="numbers">
               <div className="numbers__icon numbers__star--icon">
                 <BsStarFill />
+                <BsStarFill />
+                <BsStarFill />
+                <BsStarFill />
                 <BsStarHalf />
               </div>
               <div className="numbers__title">4.5 Stars</div>
@@ -371,14 +380,15 @@ const Home = () => {
           </div>
           <div className="footer__copyright--wrapper">
             <div className="footer__copyright">
-              Copyright &copy; 2023 BookSnacks.
+              Copyright &copy; 2026 BookSnacks.
             </div>
           </div>
         </div>
       </div>
+      
        </section>
     </div>
   )
 }
 
-export default Home
+export default Homepage
