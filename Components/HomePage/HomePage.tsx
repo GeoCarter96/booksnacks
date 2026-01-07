@@ -9,6 +9,7 @@ import Modal from '../Modal/Modal'
 
 
 
+
 const headings = ['Enhance your knowledge', 'Achieve greater success',
   'Improve your health','Develop better parenting skills','Increase happiness'
   ,'Be the best version of yourself!']
@@ -39,7 +40,7 @@ const Homepage = () => {
        <nav className="nav">
       <div className="nav__wrapper">
         <figure className="nav__img--mask">
-          <img className="nav__img" src='/booksnacks.png' alt="logo" />
+          <img className="nav__img" src='/logo.png' alt="logo" />
         </figure>
         <ul className="nav__list--wrapper">
           <li className="nav__list nav__list--login" onClick={() => setIsModalOpen(true)}>Login</li> 
@@ -52,6 +53,7 @@ const Homepage = () => {
     <section id="landing">
       <Modal isOpen={isModalOpen} 
         onClose={() => setIsModalOpen(false)} />
+       
       <div className="container">
         <div className="row">
           <div className="landing__wrapper">
@@ -67,10 +69,10 @@ const Homepage = () => {
                 <br className="remove--tablet" />
                 and even people who don’t like to read.
               </div>
-              <button className="btn home__cta--btn">Login</button>
+              <button className="btn home__cta--btn" onClick={() => setIsModalOpen(true)}>Login</button>
             </div>
             <figure className="landing__image--mask">
-              <img src="/snackbook.png" alt="landing" />
+              <img src="/landing.png" alt="landing" />
             </figure>
           </div>
         </div>
@@ -115,7 +117,7 @@ const Homepage = () => {
            
             <div  className="statistics__content--header">
                {headings.map((text, i) => (
-              <div key={i}  className={activeIndex === i? "statistics__heading--active ":"statistics__heading"}  style={{ transition: 'all 0.5s ease-in-out' }}><b>{text}</b></div>
+              <div key={i}  className={activeIndex === i? "statistics__heading--active ":"statistics__heading"}  ><b>{text}</b></div>
               ))}
             </div>
             
@@ -123,14 +125,14 @@ const Homepage = () => {
               <div className="statistics__data">
                 <div className="statistics__data--number">93%</div>
                 <div className="statistics__data--title">
-                  of BookSnacks members <b>significantly increase</b> reading
+                  of Summarist members <b>significantly increase</b> reading
                   frequency.
                 </div>
               </div>
               <div className="statistics__data">
                 <div className="statistics__data--number">96%</div>
                 <div className="statistics__data--title">
-                  of BookSnacks members <b>establish better</b> habits.
+                  of Summarist members <b>establish better</b> habits.
                 </div>
               </div>
               <div className="statistics__data">
@@ -151,21 +153,21 @@ const Homepage = () => {
               <div className="statistics__data">
                 <div className="statistics__data--number">91%</div>
                 <div className="statistics__data--title">
-                  of BookSnacks members <b>report feeling more productive</b>
+                  of Summarist members <b>report feeling more productive</b>
                    after incorporating the service into their daily routine.
                 </div>
               </div>
               <div className="statistics__data">
                 <div className="statistics__data--number">94%</div>
                 <div className="statistics__data--title">
-                  of BookSnacks members have <b>noticed an improvement</b> in
+                  of Summarist members have <b>noticed an improvement</b> in
                   their overall comprehension and retention of information.
                 </div>
               </div>
               <div className="statistics__data">
                 <div className="statistics__data--number">88%</div>
                 <div className="statistics__data--title">
-                  of BookSnacks members <b>feel more informed</b> about current
+                  of Summarist members <b>feel more informed</b> about current
                   events and industry trends since using the platform.
                 </div>
               </div>
@@ -174,9 +176,9 @@ const Homepage = () => {
             <div
               className="statistics__content--header statistics__content--header-second"
             >
-             <div  className="statistics__content--header">
+             <div  className="statistics__content--header ">
               {heading.map((word,i) => (
-              <div key={word} className={active === i? "statistics__heading--active ":"statistics__heading"}  style={{ transition: 'all 0.5s ease-in-out' }}><b>{word}</b></div>
+              <div key={word} className={active === i? "statistics__heading--active ":"statistics__heading"}  ><b>{word}</b></div>
             ))}
            </div>
             </div>
@@ -262,7 +264,7 @@ const Homepage = () => {
             </div>
           </div>
           <div className="reviews__btn--wrapper">
-            <button className="btn home__cta--btn">Login</button>
+            <button className="btn home__cta--btn" onClick={() => setIsModalOpen(true)}>Login</button>
           </div>
         </div>
       </div>
@@ -270,7 +272,7 @@ const Homepage = () => {
     <section id="numbers">
       <div className="container">
         <div className="row">
-          <div className="section__title">Start growing with BookSnacks now</div>
+          <div className="section__title">Start growing with Summarist now</div>
           <div className="numbers__wrapper">
             <div className="numbers">
               <div className="numbers__icon">
@@ -298,7 +300,7 @@ const Homepage = () => {
               </div>
               <div className="numbers__title">97%</div>
               <div className="numbers__sub--title">
-                Of BookSnacks members create a better reading habit
+                Of Summarist members create a better reading habit
               </div>
             </div>
           </div>
@@ -313,7 +315,7 @@ const Homepage = () => {
               <div className="footer__link--title">Actions</div>
               <div>
                 <div className="footer__link--wrapper">
-                  <a className="footer__link">BookSnacks Magazine</a>
+                  <a className="footer__link">Summarist Magazine</a>
                 </div>
                 <div className="footer__link--wrapper">
                   <a className="footer__link">Cancel Subscription</a>
@@ -333,7 +335,7 @@ const Homepage = () => {
                   <a className="footer__link">Pricing</a>
                 </div>
                 <div className="footer__link--wrapper">
-                  <a className="footer__link">BookSnacks Business</a>
+                  <a className="footer__link">Summarist Business</a>
                 </div>
                 <div className="footer__link--wrapper">
                   <a className="footer__link">Gift Cards</a>
@@ -380,7 +382,7 @@ const Homepage = () => {
           </div>
           <div className="footer__copyright--wrapper">
             <div className="footer__copyright">
-              Copyright &copy; 2026 BookSnacks.
+              Copyright &copy; 2026 Summarist.
             </div>
           </div>
         </div>
