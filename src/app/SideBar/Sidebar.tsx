@@ -1,24 +1,24 @@
 import './sidebar.css'
 import { useSidebarStore } from '@/store/useSidebarStore'
-
+import { useAuthModalStore } from '@/store/useModalStore';
+import { useAuthState } from 'react-firebase-hooks/auth'; 
+import { auth } from '../FirebaseItems/firebase';
+import { signOut } from 'firebase/auth';
 const Sidebar = () => {
-    const { isOpen, close } = useSidebarStore();
+     const handleLogout = async () => {
+    await signOut(auth);
+   };
+    
+     const [user] = useAuthState(auth);
+  const openModal = useAuthModalStore((state) => state.openModal);
   return (
     <div>
-          <div 
-        onClick={close}
-        className={`fixed inset-0 bg-black/50 z-40 transition-opacity ${
-          isOpen ? " opacity-100 visible" : "opacity-0 invisible"
-        }`}
-      />
-       <aside className={`
-        ${isOpen ? "translate-y-0" : "-translate-y-full"}
-      `}>
+          
       
       <div className='sidebar__overlay sidebar__overlay--hidden'></div>
 <div className= 'sidebar sidebar--closed'  >
   <div className='sidebar__logo'>
-    <img src='logo.png'/>
+    <img src='/logo.png'/>
   </div>
   <div className='sidebar__wrapper'>
     <div className='sidebar__top'>
@@ -71,12 +71,16 @@ const Sidebar = () => {
         <div className='sidebar__icon--wrapper'>
           <svg stroke="currentColor" fill="none" strokeWidth="2" viewBox="0 0 24 24" strokeLinecap="round" strokeLinejoin="round" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path><polyline points="16 17 21 12 16 7"></polyline><line x1="21" y1="12" x2="9" y2="12"></line></svg>
         </div>
-        <div className='sidebar__link--text'>Logout</div>
+        {user?(
+        <div className='sidebar__link--text'onClick={() => openModal('signUp')}>Logout</div>
+        ):(
+            <div className='sidebar__link--text'onClick={() => openModal('logIn')}>Login</div>
+        )}
       </div>
     </div>
   </div>
 </div>
- </aside>
+ 
     </div>
   )
 }

@@ -1,18 +1,15 @@
-import {create} from 'zustand';
+import { create } from 'zustand';
 
-
-interface ModalStore {
+interface AuthModalState {
   isOpen: boolean;
-  openModal: () => void;
- onClose: () => void;
+  view: 'logIn' | 'signUp';
+  openModal: (view: 'logIn' | 'signUp') => void;
+   closeModal: () => void;
 }
 
-const useModalStore = create<ModalStore>((set) => ({
-     isOpen: false,
-  openModal: () => set({ isOpen: true }),
-  onClose: () => set({ isOpen: false }),
+export const useAuthModalStore = create<AuthModalState>((set) => ({
+  isOpen: false,
+  view: 'logIn',
+  openModal: (view) => set({ isOpen: true, view }),
+  closeModal: () => set({ isOpen: false }),
 }));
-  
-
-
-export default useModalStore

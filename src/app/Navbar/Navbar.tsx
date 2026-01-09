@@ -1,14 +1,13 @@
 "use client"
 import React from 'react'
 import './Navbar.css'
-import useModalStore from '@/store/useModalStore'
 import { useSidebarStore } from '@/store/useSidebarStore';
 import Sidebar from '../SideBar/Sidebar';
 
 
 const Navbar = () => {
  const { isOpen, toggle } = useSidebarStore();
-const openModal = useModalStore((state) => state.openModal);
+
 
   return (
 <div>
