@@ -4,6 +4,9 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import Navbar from "./Navbar/Navbar";
 import { usePathname } from "next/navigation";
+import Modal from "./Modal/Modal";
+import sidebar from "./SideBar/Sidebar";
+import Sidebar from "./SideBar/Sidebar";
 
 
 const geistSans = Geist({
@@ -33,6 +36,7 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         {!hideNavbar && <Navbar/>}
+         {!hideNavbar && <Sidebar/>}
        
         {children} 
              

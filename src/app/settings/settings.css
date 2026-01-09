@@ -45,6 +45,12 @@ input {
     margin: 0 auto;
     padding: 0 24px
 }
+@media (min-width: 768px){
+    .row{
+   
+    padding-left: 230px;
+} 
+}
 
 .container {
     padding: 40px 0;

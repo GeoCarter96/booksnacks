@@ -28,7 +28,7 @@ const router = useRouter();
      try {
     await createUserWithEmailAndPassword(auth, email, password);
     onClose();
-    router.replace('/bookpage'); 
+    router.replace('/for-you'); 
   } catch (err: any) {
     switch (err.code) {
       case 'auth/invalid-email':
