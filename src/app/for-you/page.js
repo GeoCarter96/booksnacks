@@ -1,7 +1,22 @@
-import { Link } from 'next/link'
+import  Link  from 'next/link'
 import './foryou.css'
+import BookCard from '../components/BookCard';
+import { getBooks } from '../lib/books';
 
-const ForYou = ({product}) => {
+
+  const RECOMMENDED_IDS = [
+    '5bx150cz4bt',
+    '2l8idxm1rvw',
+    '4t8anyb4upc',
+    'g2tdej27d23',
+    '18tro3gle2p',
+    'ap153fptaq',
+    '2ozpy1q1pbt',
+    'cuolx5oryy8',
+  ];
+
+  export default async function ForYou () {
+    const products = await getBooks(RECOMMENDED_IDS);
   return (
 <div>
 <div className='row'>
@@ -10,7 +25,7 @@ const ForYou = ({product}) => {
 <div className='for-you__title'>Selected Just For You</div>
 <audio src="https://firebasestorage.googleapis.com/v0/b/summaristt.appspot.com/o/books%2Faudios%2Fthe-lean-startup.mp3?alt=media&amp;token=c2f2b1d4-eaf2-4d47-8c8a-7a8fd062a47e"></audio>
 <a className='selected__book' >
-<div className='selected__book--sub-title'>
+<div className='selected__book--sub-title' href='/book/f9gy1gpai8'>
 How Constant Innovation Creates Radically Successful Businesses
 </div>
 <div className='selected__book--line'></div>
@@ -41,6 +56,9 @@ Eric Ries
 </div>
 <div className='for-you__sub--title'>We Think You'll Like These</div>
 <div className='for-you__recommended--books'>
+  {products.map((p) => (
+    <BookCard key={p.id} product={p}/>
+  ))}
 <a className='for-you__recommended--books-link' href='/book/5bx150cz4bt'>
 <audio src="https://firebasestorage.googleapis.com/v0/b/summaristt.appspot.com/o/books%2Faudios%2Fhow-to-win-friends-and-influence-people.mp3?alt=media&amp;token=60872755-13fc-43f4-8b75-bae3fcd73991"></audio>
 <figure className='book__image--wrapper' >
@@ -384,4 +402,4 @@ Eric Ries
 )
 }
 
-export default ForYou
+

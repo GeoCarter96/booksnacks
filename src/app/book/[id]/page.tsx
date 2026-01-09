@@ -25,16 +25,16 @@ authorDescription: string;
 
 }
 
-export default async function page ({params,}: {params:Promise<{id: string}>})
-{const { id } = await params;
+export default async function Page ({params}: {params: { id: string }})
+{const { id } =  params;
 
 const res = await fetch(`https://us-central1-summaristt.cloudfunctions.net/getBook?id=${id}`,{
   next: { revalidate: 60} });
 
   if (!res.ok) return <div>Product Not Found</div>
   const product: Product = await res.json();
-  return <BookClient product={product}/>;
-  //return <ForYou product={product}/>;
+  return <BookClient product={product} />;
+ 
 }
   
 
