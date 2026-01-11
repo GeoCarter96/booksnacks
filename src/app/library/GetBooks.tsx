@@ -1,11 +1,13 @@
 'use client'
 import { useEffect, useState } from "react";
 
-import Book from "@/components/book";
+
+import Book from "@/components/MappedAPI/book";
 
 
 
 export default  function GetBooks({status}: {status: 'recommended' | 'suggested'}) {
+  
   console.log ('status:', status)
     const [books, setBooks] = useState<Book[] | null>(null);
     useEffect(() => {
@@ -21,12 +23,17 @@ export default  function GetBooks({status}: {status: 'recommended' | 'suggested'
    
         fetchBooks();
     },[])
+    
     return (
         
             <>
               {books?.map(book => (
-               <Book key={book.id} book={book}/>  
+                <div  key={book.id}>
+               <Book  book={book}/>  
+                {book.subscriptionRequired && <span className="book__pill book__pill--subscription-required">Premium</span>}
+               </div>
                  ))}
+                 
             </>
 
     )

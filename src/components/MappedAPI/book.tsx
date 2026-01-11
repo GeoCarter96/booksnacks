@@ -2,9 +2,12 @@ import React from 'react'
 import Link from 'next/link'
 
 export default function Book({book: {id, title, author, subTitle, imageLink}} : {book : Book}) {
+
+
   return (
     <div>
      <Link className='for-you__recommended--books-link' href={`/book/${id}`}>
+    
 <audio src="https://firebasestorage.googleapis.com/v0/b/summaristt.appspot.com/o/books%2Faudios%2Fhow-to-win-friends-and-influence-people.mp3?alt=media&amp;token=60872755-13fc-43f4-8b75-bae3fcd73991"></audio>
 <figure className='book__image--wrapper' >
 <img className="book__image" src={imageLink} alt="book" ></img>
