@@ -1,6 +1,9 @@
-import React from 'react'
+'use client'
 
-export default function SingleBook({book: { tags, title, author, subTitle, imageLink, keyIdeas, averageRating, bookDescription, authorDescription, totalRating}} : {book : Book}) {
+export default function SingleBook({book} : {book : Book}) {
+    if (!book) return <div>Loading..</div>;
+
+    const { tags = [], title, author, subTitle, imageLink, keyIdeas, averageRating, bookDescription, authorDescription, totalRating} = book;
   return (
     <div>
       <div className="row">
