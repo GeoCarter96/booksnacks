@@ -1,45 +1,42 @@
 import  Link  from 'next/link'
 import './foryou.css'
-import BookCard from '../components/BookCard';
-import { getBooks } from '../lib/books';
 
 
-  const RECOMMENDED_IDS = [
-    '5bx150cz4bt',
-    '2l8idxm1rvw',
-    '4t8anyb4upc',
-    'g2tdej27d23',
-    '18tro3gle2p',
-    'ap153fptaq',
-    '2ozpy1q1pbt',
-    'cuolx5oryy8',
-  ];
 
-  export default async function ForYou () {
-    const products = await getBooks(RECOMMENDED_IDS);
-  return (
-<div>
+interface JustForYou {
+  book: Books;
+}
+
+
+
+ 
+
+  export default  function ForYou ({book}: JustForYou) {
+    
+   
+return(
+<section>
+ 
 <div className='row'>
 <div className='container'>
 <div className='for-you__wrapper'>
 <div className='for-you__title'>Selected Just For You</div>
 <audio src="https://firebasestorage.googleapis.com/v0/b/summaristt.appspot.com/o/books%2Faudios%2Fthe-lean-startup.mp3?alt=media&amp;token=c2f2b1d4-eaf2-4d47-8c8a-7a8fd062a47e"></audio>
-<a className='selected__book' >
-<div className='selected__book--sub-title' href='/book/f9gy1gpai8'>
-How Constant Innovation Creates Radically Successful Businesses
+<a    className='selected__book' href='/book/f9gy1gpai8'>
+<div   className='selected__book--sub-title' >
+{book?.subTitle}
 </div>
 <div className='selected__book--line'></div>
-
-<div className='selected__book--content'>
+<div  className='selected__book--content'>
 <figure className='book__image--wrapper' >
-<img className="book__image" src="https://firebasestorage.googleapis.com/v0/b/summaristt.appspot.com/o/books%2Fimages%2Fthe-lean-startup.png?alt=media&amp;token=087bb342-71d9-4c07-8b0d-4dd1f06a5aa2" alt="book" />
+<img className="book__image" src={book?.imageLink} alt="book" />
 </figure>
 <div className='selected__book--text'>
 <div className='selected__book--title'>
-The Lean Startup 
+{book?.title}
 </div>
 <div className='selected__book--author'>
-Eric Ries
+{book?.author}
 </div>
 <div className='selected__book--duration-wrapper'>
 <div className='selected__book--icon'>
@@ -49,17 +46,13 @@ Eric Ries
 </div>
 </div>
 </div>
-
 </a>
 <div>
 <div className='for-you__title'>Recommended For You</div>
 </div>
 <div className='for-you__sub--title'>We Think You'll Like These</div>
 <div className='for-you__recommended--books'>
-  {products.map((p) => (
-    <BookCard key={p.id} product={p}/>
-  ))}
-<a className='for-you__recommended--books-link' href='/book/5bx150cz4bt'>
+ <a className='for-you__recommended--books-link' href='/book/5bx150cz4bt'>
 <audio src="https://firebasestorage.googleapis.com/v0/b/summaristt.appspot.com/o/books%2Faudios%2Fhow-to-win-friends-and-influence-people.mp3?alt=media&amp;token=60872755-13fc-43f4-8b75-bae3fcd73991"></audio>
 <figure className='book__image--wrapper' >
 <img className="book__image" src="https://firebasestorage.googleapis.com/v0/b/summaristt.appspot.com/o/books%2Fimages%2Fhow-to-win-friends-and-influence-people.png?alt=media&amp;token=099193aa-4d85-4e22-8eb7-55f12a235fe2" alt="book" ></img>
@@ -84,6 +77,8 @@ Eric Ries
 </div>
 </div>
 </a>
+
+
 <a className="for-you__recommended--books-link" href="/book/2l0idxm1rvw">
 <audio src="https://firebasestorage.googleapis.com/v0/b/summaristt.appspot.com/o/books%2Faudios%2Fcan't-hurt-me.mp3?alt=media&amp;token=7de57406-60ca-49d6-9113-857507f48312"></audio>
 <figure className="book__image--wrapper" >
@@ -241,6 +236,7 @@ Eric Ries
 </div>
 </div>
 </a>
+
 </div>
 </div>
 <div>
@@ -394,11 +390,15 @@ Eric Ries
 </div>
 </div>
 </a>
+
 </div>
 </div>
+
 </div>
 </div>
-</div>
+
+</section>
+    
 )
 }
 
