@@ -6,35 +6,35 @@ import { useEffect, useState } from "react";
 
 
 
+
+
+
+
+
 export default async function GetOneBook( { id }: {id : string}) {
-  const [books, setBooks] = useState<Book[] | null>(null);
-  useEffect(() => {
-        const fetchBooks = async () => {
-    const res = await fetch (`https://us-central1-summaristt.cloudfunctions.net/getBook?id=${id}`, {
-      cache: 'no-store'
-    })
+    const res = await fetch (`https://us-central1-summaristt.cloudfunctions.net/getBook?id=${id}`)
   
     if (!res.ok) throw new Error(`Fetch failed: ${res.status}`);
     
-    const data = await res.json()
-     setBooks(books)
-console.log("API RAW DATA:", data); }
-fetchBooks();
-        },[])
-    const book = Array.isArray(books) ? books[0] : books;
-
-
-    if (!book || Object.keys(book).length === 0) {
-      return <div> No book found</div>
+    const text = await res.text();
+    
+    if (!text) {
+      return <div>No book data available</div>;
     }
     
-
+    let book: Book;
+    try {
+      book = JSON.parse(text);
+    } catch (e) {
+      console.error('Failed to parse JSON:', text);
+      return <div>Error loading book data</div>;
+    }
+    
+    if (!book) {
+      return <div>Book not found</div>;
+    }
   return (
-     <>
-                 {books?.map(book => (
- <SingleBook book={book} /> 
- ))}
-               </>
+    <> <SingleBook book={book} /> </>
   )
  
   
