@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import './Modal.css'
 import { createUserWithEmailAndPassword } from 'firebase/auth';
-import { auth } from '../FirebaseItems/firebase';
+import { auth } from '../../app/FirebaseItems/firebase';
 import { useRouter } from 'next/navigation';
 
 

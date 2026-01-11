@@ -5,7 +5,7 @@ import { BsStarFill, BsStarHalf } from 'react-icons/bs'
 import { RiLeafLine } from 'react-icons/ri'
 import './Homepage.css'
 import { useState, useEffect } from 'react'
-import Modal from "./Modal/Modal";
+import Modal from "../components/Modal/Modal";
 
 
 const headings = ['Enhance your knowledge', 'Achieve greater success',

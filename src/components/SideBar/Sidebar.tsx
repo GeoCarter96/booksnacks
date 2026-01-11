@@ -2,7 +2,7 @@ import './sidebar.css'
 import { useSidebarStore } from '@/store/useSidebarStore'
 import { useAuthModalStore } from '@/store/useModalStore';
 import { useAuthState } from 'react-firebase-hooks/auth'; 
-import { auth } from '../FirebaseItems/firebase';
+import { auth } from '../../app/FirebaseItems/firebase';
 import { signOut } from 'firebase/auth';
 const Sidebar = () => {
      const handleLogout = async () => {
