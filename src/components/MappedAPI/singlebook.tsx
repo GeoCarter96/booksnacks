@@ -1,13 +1,10 @@
-'use client'
 
-export default function SingleBook({book} : {book : Book}) {
-    if (!book) return <div>Loading..</div>;
 
-    const { tags = [], title, author, subTitle, imageLink, keyIdeas, averageRating, bookDescription, authorDescription, totalRating} = book;
+export default function SingleBook({book: { tags, title, author, subTitle, imageLink, keyIdeas, averageRating, bookDescription, authorDescription, totalRating, audioLink}} : {book : Book}) {
   return (
     <div>
       <div className="row">
-<audio src=''></audio>
+<audio src={audioLink}></audio>
 <div className="container">
 <div className="inner__wrapper">
 <div className="inner__book">

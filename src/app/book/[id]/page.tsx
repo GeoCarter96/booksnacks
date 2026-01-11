@@ -1,9 +1,11 @@
-'use client'
+
+
 
 
 
 
 import GetOneBook from "@/app/library/GetOneBook";
+
 export default async function BookClient({ 
   params 
 }: { 
@@ -17,5 +19,4 @@ export default async function BookClient({
     </div>
   );
 }
-
 

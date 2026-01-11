@@ -1,6 +1,6 @@
-'use client'
+
 import SingleBook from "@/components/MappedAPI/singlebook";
-import { useEffect, useState } from "react";
+
 
 
 
