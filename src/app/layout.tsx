@@ -5,6 +5,8 @@ import "./globals.css";
 import Navbar from "../components/Navbar/Navbar";
 import { usePathname } from "next/navigation";
 import Sidebar from "../components/SideBar/Sidebar";
+import ModalManager from "@/components/Modal/ModalManager";
+
 
 
 const geistSans = Geist({
@@ -35,7 +37,7 @@ export default function RootLayout({
       >
         {!hideNavbar && <Navbar/>}
          {!hideNavbar && <Sidebar/>}
-      
+      <ModalManager/>
         {children} 
             
       </body>

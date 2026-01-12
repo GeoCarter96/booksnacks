@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import  { useState } from 'react'
 import './Modal.css'
 import { createUserWithEmailAndPassword } from 'firebase/auth';
 import { auth } from '../../app/FirebaseItems/firebase';

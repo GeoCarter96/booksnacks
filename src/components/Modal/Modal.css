@@ -164,7 +164,9 @@
 }
 
 .auth__forgot--password:hover {
-    color: #124a98
+    color: #124a98;
+    cursor: not-allowed;
+    
     
 }
 

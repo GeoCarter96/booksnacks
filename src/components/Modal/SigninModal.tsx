@@ -5,6 +5,7 @@ import { signInWithEmailAndPassword } from 'firebase/auth';
 import { auth } from '../../app/FirebaseItems/firebase';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
+import { signInAnonymously } from "firebase/auth";
 
 const SigninModal = ({
   setModalType,
@@ -44,6 +45,16 @@ const handleLogin = async (e) => {
     }
   }
 };
+const handleGuestLogin = async () => {
+  try {
+    await signInAnonymously(auth);
+   
+    router.push('/for-you'); 
+    onClose(); 
+  } catch (error) {
+    console.error("Guest login failed");
+  }
+};
 
   return (
     <div>
@@ -59,7 +70,7 @@ const handleLogin = async (e) => {
 <svg stroke="currentColor" fill="currentColor" strokeWidth="0" viewBox="0 0 448 512" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M224 256c70.7 0 128-57.3 128-128S294.7 0 224 0 96 57.3 96 128s57.3 128 128 128zm89.6 32h-16.7c-22.2 10.2-46.9 16-72.9 16s-50.6-5.8-72.9-16h-16.7C60.2 288 0 348.2 0 422.4V464c0 26.5 21.5 48 48 48h352c26.5 0 48-21.5 48-48v-41.6c0-74.2-60.2-134.4-134.4-134.4z"></path></svg>
 </figure>
 <Link href='/for-you'>
-<div>Login As A Guest</div>
+<div  onClick={handleGuestLogin}>Login As A Guest</div>
 </Link>
 </button>
 
@@ -67,7 +78,7 @@ const handleLogin = async (e) => {
     <span className='auth__separator--text'>or</span>
 </div>
 
-<form onSubmit={handleLogin} className='auth__main--form'>
+<form onSubmit={handleLogin}  className='auth__main--form'>
     <input className='auth__main--input' type='email' placeholder='Email Address' onChange={(e) => handleInputChange(setEmail,e.target.value)} />
     <input className='auth__main--input' type='password' placeholder='Password'  onChange={(e) => handleInputChange(setPassword,e.target.value)} />
     <button type='submit' className='btn'>

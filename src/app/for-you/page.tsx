@@ -15,7 +15,7 @@ import SelectedBook from '../library/SelectedBook';
     
    
 return(
-<section>
+<div>
  
 <div className='row'>
 <div className='container'>
@@ -44,7 +44,7 @@ return(
 </div>
 </div>
 
-</section>
+</div>
     
 )
 }

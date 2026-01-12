@@ -1,7 +1,7 @@
 import React from 'react'
 import './settings.css'
 
-const settings = () => {
+const Settings = () => {
   return (
 <div>
 <div className='container'>
@@ -21,4 +21,4 @@ const settings = () => {
 )
 }
 
-export default settings
+export default Settings

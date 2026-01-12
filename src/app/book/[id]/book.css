@@ -912,7 +912,8 @@ padding-left: 200px;
 
 .search__input--wrapper {
     position: relative;
-    gap: 8px
+    gap: 8px;
+    width: 100%;
 }
 
 .search__input {

@@ -1,15 +1,22 @@
 import { create } from 'zustand';
+import { useRouter } from 'next/navigation';
 
-interface AuthModalState {
-  isOpen: boolean;
-  view: 'logIn' | 'signUp';
-  openModal: (view: 'logIn' | 'signUp') => void;
-   closeModal: () => void;
+
+type ModalType = "logIn" | "signUp" | null;
+
+interface ModalState {
+   modalType: ModalType;
+  openModal: (type: "logIn" | "signUp") => void;
+  closeModal: () => void;
+  setModalType: (type: "logIn" | "signUp") => void;
+  
 }
 
-export const useAuthModalStore = create<AuthModalState>((set) => ({
-  isOpen: false,
-  view: 'logIn',
-  openModal: (view) => set({ isOpen: true, view }),
-  closeModal: () => set({ isOpen: false }),
+export const useModalStore = create<ModalState>((set) => ({
+   
+   modalType: null, 
+  openModal: (type) => set({ modalType: type }),
+  closeModal: () => set({ modalType: null }),
+  setModalType: (type) => set({ modalType: type }),
+  
 }));
