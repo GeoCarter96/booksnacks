@@ -1633,6 +1633,9 @@ padding-left: 200px;
 .btn.settings__login--btn {
     width: 100px
 }
+.inner-book__overall--rating{
+    padding: 5px;
+}
 
 .inner__wrapper {
     display: flex;
