@@ -2272,3 +2272,13 @@ input {
         padding-left: 250px;
     }
  }
+ @keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
+}
+
+.skeleton {
+  background-color: #e2e8f0; /* light gray */
+  border-radius: 4px;
+  animation: pulse 1.5s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}

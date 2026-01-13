@@ -4,6 +4,7 @@ import Link from 'next/link'
 export default function Book({book: {id, title, author, subTitle, imageLink}} : {book : Book}) {
 
 
+
   return (
     
      <Link className='for-you__recommended--books-link' href={`/book/${id}`}>

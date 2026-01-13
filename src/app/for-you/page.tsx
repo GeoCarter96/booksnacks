@@ -1,9 +1,11 @@
+'use client'
 import  Link  from 'next/link'
 import './foryou.css'
 import GetBooks from '../library/GetBooks';
 import SelectedBook from '../library/SelectedBook';
-
-
+import { useAuthState } from 'react-firebase-hooks/auth';
+import { auth } from '../FirebaseItems/firebase';
+import { BookSkeleton } from '@/components/Skeletons/BookSkeleton';
 
 
 
@@ -12,7 +14,41 @@ import SelectedBook from '../library/SelectedBook';
  
 
   export default  function ForYou () {
-    
+     const [ user, loading, error] = useAuthState(auth);
+if (error) {return <div>Error</div>;}
+
+if (loading) {
+  return (
+     <div className='row'>
+      <div className='container'>
+        <div className='for-you__wrapper'>
+          <div className='for-you__title'>Selected Just For You</div>
+    <div className="for-you__recommended--books">
+      {[...Array(1)].map((_, i) => (
+        <BookSkeleton key={i} />
+      ))}
+    </div>
+      <div>
+            <div className='for-you__title'>Recommended For You</div>
+          </div>
+          <div className='for-you__sub--title'>We Think You'll Like These</div>
+           <div className="for-you__recommended--books">
+            {[...Array(5)].map((_, i) => (
+              <BookSkeleton key={i} />
+            ))}
+      </div>
+      <div className='for-you__title'>Suggested Books</div>
+<div className='for-you__sub--title'>Browse These Books</div>
+ <div className="for-you__recommended--books">
+            {[...Array(5)].map((_, i) => (
+              <BookSkeleton key={i} />
+            ))}
+      </div>
+      </div>
+    </div>
+    </div>
+  );
+}
    
 return(
 

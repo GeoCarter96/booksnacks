@@ -1,7 +1,15 @@
-
+'use client'
+import { useAuthState } from 'react-firebase-hooks/auth';
+import { auth } from '@/app/FirebaseItems/firebase';
+import SingleBookSk from '../Skeletons/SingleBookSk';
 
 export default function SingleBook({book: { tags, title, author, subTitle, imageLink, keyIdeas, averageRating, bookDescription, authorDescription, totalRating, audioLink, type}} : {book : Book}) {
-  return (
+     const [ user, loading, error] = useAuthState(auth);
+if (error) {return <div>Error</div>;}
+if(loading) {
+    return (<SingleBookSk/>)
+}
+    return (
     <div>
       <div className="row">
 <audio src={audioLink}></audio>
