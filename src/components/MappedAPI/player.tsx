@@ -39,7 +39,7 @@ export default function Player({book: { summary, author, title, audioLink, image
     </div>
     <div className="audio__progress--wrapper">
         <div className="audio__time">00:00</div>
-        <input type='range' className="audio__progress--bar" value='0' max='204.048'/>
+        <input type='range' className="audio__progress--bar"  />
         <div className="audio__time">03:24</div>
     </div>
 </div>
