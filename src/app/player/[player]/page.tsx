@@ -10,7 +10,7 @@ export default async function Player({
   
   return (
     <div>
-      <GetOneBook id={player} />
+      <GetOneBook id={player} player="audio" />
     </div>
   );
 }
