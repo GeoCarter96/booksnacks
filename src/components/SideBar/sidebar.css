@@ -601,7 +601,7 @@ input {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    height: calc(100vh - 60px);
+    height: calc(-140px + 100vh);
     padding-bottom: 20px;
     overflow-y: auto
 }
