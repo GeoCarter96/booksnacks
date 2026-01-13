@@ -1,5 +1,5 @@
 "use client";
-import React, {useState} from 'react'
+import  {useState} from 'react'
 import './Modal.css'
 import { signInWithEmailAndPassword } from 'firebase/auth';
 import { auth } from '../../app/FirebaseItems/firebase';
@@ -17,6 +17,8 @@ const SigninModal = ({
 const [email, setEmail] = useState('');
 const [password, setPassword] = useState('');
 const [msg, setMsg] = useState('');
+const [isLoading, setIsLoading] = useState(false);
+const [isGuestLoading, setIsGuestLoading] = useState(false);
   const router = useRouter();
   const handleInputChange = (setter: any, value: string) => {
   setter(value);
@@ -25,12 +27,14 @@ const [msg, setMsg] = useState('');
 
 const handleLogin = async (e) => {
     e.preventDefault();
+    setIsGuestLoading(true);
     try {
     await signInWithEmailAndPassword(auth, email, password);
     onClose();
     router.replace('/for-you'); 
   } catch (err: any) {
-    switch (err.code) {
+    switch (err.code)
+     {
       case 'auth/invalid-email':
         setMsg("Invalid email format.");
         break;
@@ -42,10 +46,11 @@ const handleLogin = async (e) => {
         break;
       default:
         setMsg("Login failed. Please try again.");
-    }
+    } setIsLoading(false)
   }
 };
 const handleGuestLogin = async () => {
+  setIsGuestLoading(true);
   try {
     await signInAnonymously(auth);
    
@@ -53,6 +58,7 @@ const handleGuestLogin = async () => {
     onClose(); 
   } catch (error) {
     console.error("Guest login failed");
+    setIsGuestLoading(false);
   }
 };
 
@@ -65,12 +71,12 @@ const handleGuestLogin = async () => {
 <div className='auth'>
 <div className='auth_content'>
 <div className='auth__title'>Login To Summarist</div>
-<button className='btn guest__btn--wrapper'>
+<button className='btn guest__btn--wrapper'onClick={handleGuestLogin}  disabled={isGuestLoading || isLoading}>
 <figure className='google__icon--mask guest__icon--mask'>
 <svg stroke="currentColor" fill="currentColor" strokeWidth="0" viewBox="0 0 448 512" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M224 256c70.7 0 128-57.3 128-128S294.7 0 224 0 96 57.3 96 128s57.3 128 128 128zm89.6 32h-16.7c-22.2 10.2-46.9 16-72.9 16s-50.6-5.8-72.9-16h-16.7C60.2 288 0 348.2 0 422.4V464c0 26.5 21.5 48 48 48h352c26.5 0 48-21.5 48-48v-41.6c0-74.2-60.2-134.4-134.4-134.4z"></path></svg>
 </figure>
 <Link href='/for-you'>
-<div  onClick={handleGuestLogin}>Login As A Guest</div>
+<div  >{isGuestLoading ? 'Loading...' : 'Login As A Guest'}</div>
 </Link>
 </button>
 
@@ -81,8 +87,8 @@ const handleGuestLogin = async () => {
 <form onSubmit={handleLogin}  className='auth__main--form'>
     <input className='auth__main--input' type='email' placeholder='Email Address' onChange={(e) => handleInputChange(setEmail,e.target.value)} />
     <input className='auth__main--input' type='password' placeholder='Password'  onChange={(e) => handleInputChange(setPassword,e.target.value)} />
-    <button type='submit' className='btn'>
-        <span>Login</span>
+    <button type='submit' className='btn' disabled={isLoading || isGuestLoading}>
+        <span>{isLoading ? 'Logging in...' : 'Login'}</span>
     </button>
 </form>
 <p>{msg}</p>

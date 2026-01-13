@@ -62,3 +62,14 @@
     transform: translateY(1px)
 }
 
+ @media (max-width:1286px){
+    .row{
+        padding-left: 200px;
+    }
+ }
+
+ @media (min-width:769px){
+    .row{
+        padding-left: 250px;
+    }
+ }

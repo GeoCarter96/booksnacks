@@ -59,8 +59,11 @@ export default function SingleBook({book: { tags, title, author, subTitle, image
 </div>
 <div className="inner-book__secondary--title">What's it about?</div>
 <div className="inner-book__tags--wrapper">
-<div className="inner-book__tag">{tags[0]}</div>
-<div className="inner-book__tag">{tags[1]}</div>
+{tags && tags.map((tag, index) => (
+  <div key={index} className="inner-book__tag">
+    {tag}
+  </div>
+))}
 </div>
 <div className="inner-book__book--description">{bookDescription}</div>
 <h2 className="inner-book__secondary--title">About the author</h2>

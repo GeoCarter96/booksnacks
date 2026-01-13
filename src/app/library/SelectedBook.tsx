@@ -19,7 +19,7 @@ export default function SelectedBook({status}: {status: 'selected'}) {
             fetchBooks();
         },[])
   return (
-     <>
+   <>
                  {books?.map(book => (
                   <OneBook key={book.id} book={book}/>  
                   

@@ -1775,7 +1775,8 @@ padding-left: 200px;
 
 .inner-book__bookmark--icon svg {
     width: 100%;
-    height: 100%
+    height: 100%;
+    cursor: not-allowed;
 }
 
 .inner-book__tags--wrapper {

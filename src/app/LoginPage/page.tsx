@@ -1,9 +1,10 @@
 'use client'
 import './LoginPage.css'
 import { useModalStore } from '@/store/useModalStore'
-
+import { useEffect } from 'react';
 export default function LoginPage() {
       const openModal = useModalStore((state) => state.openModal);
+
   return (
     <div>
       <div className='container'>
