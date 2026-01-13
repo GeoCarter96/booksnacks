@@ -1,5 +1,6 @@
 
 import SingleBook from "@/components/MappedAPI/singlebook";
+import Player from "@/components/MappedAPI/player";
 
 
 
@@ -34,7 +35,10 @@ export default async function GetOneBook( { id }: {id : string}) {
       return <div>Book not found</div>;
     }
   return (
+    <>
     <> <SingleBook book={book} /> </>
+    <><Player book={book}/></>
+    </>
   )
  
   
