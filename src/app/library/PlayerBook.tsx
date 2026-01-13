@@ -1,18 +1,10 @@
-
-import SingleBook from "@/components/MappedAPI/singlebook";
-
+import Player from "@/components/MappedAPI/player";
 
 
 
 
 
-
-
-
-
-
-
-export default async function GetOneBook( { id }: { id: string; }) {
+export default async function PlayerBook( { id }: { id: string; }) {
      const url = `https://us-central1-summaristt.cloudfunctions.net/getBook?id=${id}`;
   
   const res = await fetch(url);
@@ -25,7 +17,7 @@ export default async function GetOneBook( { id }: { id: string; }) {
   const book: Book = JSON.parse(text);
   return (
     <>
-    <> <SingleBook book={book} /> </>
+    <> <Player book={book} /> </>
     
     </>
   )

@@ -1,16 +1,17 @@
-import GetOneBook from "@/app/library/GetOneBook";
+import PlayerBook from '@/app/library/PlayerBook';
 import './player.css'
+
 
 export default async function Player({ 
   params 
 }: { 
-  params: Promise<{ player: string }> 
+  params: Promise<{ id: string }> 
 }) {
-  const { player } = await params;
+  const { id } = await params;
   
   return (
     <div>
-      <GetOneBook id={player} player="audio" />
+      <PlayerBook id={id}  />
     </div>
   );
 }
