@@ -216,5 +216,16 @@
 
 .book__image--wrapper {
     width: 48px;
-    height: 48px
+    height: 48px;
+    min-width: 48px;
+}
+@media (764px <= width <= 1167px){
+    .summary{
+        padding-left: 200px;
+    }
+}
+@media (769px <= width <= 888px){
+    .audio__track--wrapper{
+      height: 70px;
+    }
 }
