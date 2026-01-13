@@ -1,4 +1,4 @@
-import React from 'react'
+
 
 export default function SingleBookSk() {
   return (
@@ -7,14 +7,14 @@ export default function SingleBookSk() {
       <div className="container">
         <div className="inner__wrapper">
           <div className="inner__book">
-            {/* Title & Author Skeletons */}
+         
             <div className="skeleton" style={{ width: '60%', height: '36px', marginBottom: '8px' }} />
             <div className="skeleton" style={{ width: '40%', height: '20px', marginBottom: '8px' }} />
             <div className="skeleton" style={{ width: '80%', height: '24px', marginBottom: '24px' }} />
 
             <div className="inner-book__wrapper">
               <div className="inner-book__description--wrapper">
-                {/* Loop 4 pulsing rows for Rating, Duration, etc. */}
+
                 {[...Array(4)].map((_, i) => (
                   <div key={i} className="inner-book__description">
                     <div className="skeleton" style={{ width: '24px', height: '24px', borderRadius: '50%' }} />
@@ -24,13 +24,13 @@ export default function SingleBookSk() {
               </div>
             </div>
 
-            {/* Button Skeletons */}
+         
             <div className="inner-book__read--btn-wrapper">
               <div className="skeleton" style={{ width: '150px', height: '48px', borderRadius: '4px' }} />
               <div className="skeleton" style={{ width: '150px', height: '48px', borderRadius: '4px' }} />
             </div>
 
-            {/* Description Skeletons */}
+        
             <div className="skeleton" style={{ width: '150px', height: '24px', margin: '32px 0 16px' }} />
             <div className="skeleton" style={{ width: '100%', height: '100px' }} />
             
@@ -38,7 +38,7 @@ export default function SingleBookSk() {
             <div className="skeleton" style={{ width: '100%', height: '80px' }} />
           </div>
 
-          {/* Image Skeleton */}
+      
           <div className="inner-book--img-wrapper">
             <div className="skeleton" style={{ width: '300px', height: '450px' }} />
           </div>

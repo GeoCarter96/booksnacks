@@ -6,6 +6,11 @@ import { RiLeafLine } from 'react-icons/ri'
 import './Homepage.css'
 import { useState, useEffect } from 'react'
 import Modal from "../components/Modal/Modal";
+import { useAuthState } from 'react-firebase-hooks/auth';
+import { auth } from './FirebaseItems/firebase';
+import { useRouter } from 'next/navigation';
+import HomeSkeleton from '@/components/Skeletons/HomeSkeleton';
+
 
 
 const headings = ['Enhance your knowledge', 'Achieve greater success',
@@ -20,6 +25,22 @@ const Home = () => {
     const [active, setActive] = useState(0)
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [modalType, setModalType] = useState<"logIn" | "signUp">("logIn");
+const [mounted, setMounted] = useState(false);
+    
+  const [user, loading] = useAuthState(auth);
+  const router = useRouter();
+
+  const handleAction = () => {
+    if (user) {
+      router.push('/for-you');
+    } else {
+      setIsModalOpen(true);
+    }
+  };
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
    useEffect(() => {
      const interval = setInterval(() => {
      setActiveIndex((prev) => (prev + 1) % headings.length);
@@ -34,6 +55,12 @@ const Home = () => {
  
      return () => clearInterval(interval1);
    }, []);
+   if (!mounted){
+    return(<HomeSkeleton/>)
+   }
+   if (loading){
+    return (<HomeSkeleton/>)
+   }
    return (
      <div>
         <nav className="nav">
@@ -42,7 +69,7 @@ const Home = () => {
            <img className="nav__img" src='/logo.png' alt="logo" />
          </figure>
          <ul className="nav__list--wrapper">
-           <li className="nav__list nav__list--login" onClick={() => setIsModalOpen(true)}>Login</li> 
+           <li className="nav__list nav__list--login" onClick={handleAction}>{user ? "Dashboard" : "Login"}</li> 
            <li className="nav__list nav__list--mobile">About</li>
            <li className="nav__list nav__list--mobile">Contact</li>
            <li className="nav__list nav__list--mobile">Help</li>
@@ -70,7 +97,7 @@ const Home = () => {
                  <br className="remove--tablet" />
                  and even people who don’t like to read.
                </div>
-               <button className="btn home__cta--btn" onClick={() => setIsModalOpen(true)}>Login</button>
+               <button className="btn home__cta--btn" onClick={handleAction}> {user ? "Go to For You" : "Login"}</button>
              </div>
              <figure className="landing__image--mask">
                <img src="/landing.png" alt="landing" />
@@ -265,7 +292,7 @@ const Home = () => {
              </div>
            </div>
            <div className="reviews__btn--wrapper">
-             <button className="btn home__cta--btn" onClick={() => setIsModalOpen(true)}>Login</button>
+             <button className="btn home__cta--btn" onClick={handleAction}> {user ? "Go to For You" : "Login"}</button>
            </div>
          </div>
        </div>
@@ -393,6 +420,7 @@ const Home = () => {
      </div>
    )
  }
+
  
  export default Home
  
