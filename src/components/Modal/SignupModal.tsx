@@ -2,7 +2,7 @@ import  { useState } from 'react'
 import './Modal.css'
 import { createUserWithEmailAndPassword } from 'firebase/auth';
 import { auth } from '../../app/FirebaseItems/firebase';
-import { useRouter } from 'next/navigation';
+import { useRouter, usePathname } from 'next/navigation';
 
 
 
@@ -18,6 +18,7 @@ const SignupModal =({
    const [password, setPassword] = useState('');
    const [msg, setMsg] = useState('');
 const router = useRouter();
+const pathname = usePathname();
    const handleInputChange = (setter: any, value: string) => {
   setter(value);
   if (msg) setMsg(""); 
@@ -27,8 +28,15 @@ const router = useRouter();
     e.preventDefault();
      try {
     await createUserWithEmailAndPassword(auth, email, password);
-    onClose();
-    router.replace('/for-you'); 
+    if (pathname === '/') {
+            router.push('/for-you');
+        } 
+        
+        else {
+            router.refresh();
+        }
+
+        onClose();
   } catch (err: any) {
     switch (err.code) {
       case 'auth/invalid-email':
