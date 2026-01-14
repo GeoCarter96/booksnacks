@@ -21,7 +21,7 @@ const Navbar = () => {
     const debounce = setTimeout(async () => {
       try {
         const res = await fetch(
-          `us-central1-summaristt.cloudfunctions.net${searchTerm}`
+          `https://us-central1-summaristt.cloudfunctions.net/getBooksByAuthorOrTitle?search=${searchTerm}`
         );
         const data = await res.json();
         setResults(data);
@@ -72,7 +72,7 @@ const Navbar = () => {
                         onClick={() => setSearchTerm("")} 
                       >
                         <figure className="search__result--image">
-                          <img src={book.imageLink} alt={book.title} width={40} />
+                          <img src={book.imageLink} alt={book.title} width={20} />
                         </figure>
                         <div className="search__result--text">
                           <div className="search__result--title">{book.title}</div>

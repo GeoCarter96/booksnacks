@@ -8,7 +8,19 @@ const Settings = () => {
    const [user, loading] = useAuthState(auth);
    const openModal = useModalStore((state) => state.openModal);
 
- if (!user){
+
+ 
+  if (loading) {
+    return (
+      <div className="container">
+        <div className="row">
+          <div className="section__title page__title">Settings</div>
+          <div className="settings__loading">Loading your details...</div>
+        </div>
+      </div>
+    );
+  } 
+   if (!user){
   return (
     <div>
       <div className='container'>
@@ -24,17 +36,6 @@ const Settings = () => {
     </div>
   )
 }
- 
-  if (loading) {
-    return (
-      <div className="container">
-        <div className="row">
-          <div className="section__title page__title">Settings</div>
-          <div className="settings__loading">Loading your details...</div>
-        </div>
-      </div>
-    );
-  } 
   return (
 <div>
 <div className='container'>

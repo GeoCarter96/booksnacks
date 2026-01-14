@@ -2260,3 +2260,9 @@ input {
         font-size: 20px
     }
 }
+@media (min-width: 768px){
+    .row{
+   
+    padding-left: 230px;
+} 
+}

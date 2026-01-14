@@ -1,18 +1,25 @@
 'use client'
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { auth } from '@/app/FirebaseItems/firebase';
-import PlayerSkeleton from '../Skeletons/PlayerSkeleton';
+import useFontStore from '@/store/useFontStore';
 import { useModalStore } from '@/store/useModalStore'
-import './BookLogin.css'
+import { ClipLoader } from "react-spinners";
 
 export default function Player({book :{ summary, author, title, audioLink, imageLink}} : {book : Book}) {
     const openModal = useModalStore((state) => state.openModal);
      const [ user, loading, error] = useAuthState(auth);
-     
+      const fontSize = useFontStore((state) => state.fontSize);
+
 if (error) return <div>Error</div>;
-if (loading)
-    return
-        <PlayerSkeleton/>;
+if (loading){
+    return (
+    <div className="spinner__wrapper">
+       <ClipLoader color="#0365d2" loading={loading} size={50} />
+    </div>
+  );
+}
+   
+  
     
    if (!user){
      return (
@@ -40,7 +47,7 @@ if (loading)
             <div className="audio__book--summary-title">
                 <b>{title}</b>
             </div>
-            <div className="audio__book--summary-text">
+            <div className="audio__book--summary-text"  style={{ fontSize: fontSize }}>
                 {summary}
                 </div>
 <div className="audio__wrapper">

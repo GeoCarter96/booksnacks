@@ -6,12 +6,14 @@ import './sidebar.css'
  import { auth } from '@/app/FirebaseItems/firebase';
  import { signOut } from 'firebase/auth';
 import { useAuthState } from 'react-firebase-hooks/auth';
-import { useRouter } from 'next/navigation';
-import { useEffect } from 'react';
+
+import useFontStore from '@/store/useFontStore';
+
  
 const Sidebar = () => {
   const [user, loading] = useAuthState(auth); 
-  const router = useRouter();
+  
+  const { fontSize, setFontSize } = useFontStore();
     const pathname = usePathname();
    const openModal = useModalStore((state) => state.openModal);
 
@@ -70,8 +72,36 @@ const Sidebar = () => {
         </div>
         <div className='sidebar__link--text'>Search</div>
       </div>
-    </div>
+       </div>
+         {pathname.startsWith('/player/') && (
+      <div className='sidebar__link--wrapper sidebar__font--size-wrapper'>
+        <div onClick={() => setFontSize('16px')} className={`sidebar__link--text sidebar__font--size-icon ${fontSize === '16px' ? 'sidebar__font--size-icon--active' : ''}`}>
+          <svg stroke="currentColor" fill="currentColor" strokeWidth="0" viewBox="0 0 24 24" className="sidebar__font--size-icon-small" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><g><path fill="none" d="M0 0h24v24H0z"></path><path d="M11.246 15H4.754l-2 5H.6L7 4h2l6.4 16h-2.154l-2-5zm-.8-2L8 6.885 5.554 13h4.892zM21 12.535V12h2v8h-2v-.535a4 4 0 1 1 0-6.93zM19 18a2 2 0 1 0 0-4 2 2 0 0 0 0 4z"></path></g>
+        <g>
+          <path fill="none" d="M0 0h24v24H0z"></path>
+          <path d="M11.246 15H4.754l-2 5H.6L7 4h2l6.4 16h-2.154l-2-5zm-.8-2L8 6.885 5.554 13h4.892zM21 12.535V12h2v8h-2v-.535a4 4 0 1 1 0-6.93zM19 18a2 2 0 1 0 0-4 2 2 0 0 0 0 4z"></path>
+        </g>
+        </svg>
+        </div>
+<div onClick={() => setFontSize('22px')} className={`sidebar__link--text sidebar__font--size-icon ${fontSize === '22px' ? 'sidebar__font--size-icon--active' : ''}`}>
+  <svg stroke="currentColor" fill="currentColor" strokeWidth="0" viewBox="0 0 24 24" className="sidebar__font--size-icon-medium" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><g><path fill="none" d="M0 0h24v24H0z"></path><path d="M11.246 15H4.754l-2 5H.6L7 4h2l6.4 16h-2.154l-2-5zm-.8-2L8 6.885 5.554 13h4.892zM21 12.535V12h2v8h-2v-.535a4 4 0 1 1 0-6.93zM19 18a2 2 0 1 0 0-4 2 2 0 0 0 0 4z"></path></g>
+  <g><path fill="none" d="M0 0h24v24H0z"></path><path d="M11.246 15H4.754l-2 5H.6L7 4h2l6.4 16h-2.154l-2-5zm-.8-2L8 6.885 5.554 13h4.892zM21 12.535V12h2v8h-2v-.535a4 4 0 1 1 0-6.93zM19 18a2 2 0 1 0 0-4 2 2 0 0 0 0 4z"></path></g>
+  </svg>
+</div>
+<div  onClick={() => setFontSize('28px')} className={`sidebar__link--text sidebar__font--size-icon ${fontSize === '28px' ? 'sidebar__font--size-icon--active' : ''}`}>
+  <svg stroke="currentColor" fill="currentColor" strokeWidth="0" viewBox="0 0 24 24" className="sidebar__font--size-icon-large" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><g><path fill="none" d="M0 0h24v24H0z"></path><path d="M11.246 15H4.754l-2 5H.6L7 4h2l6.4 16h-2.154l-2-5zm-.8-2L8 6.885 5.554 13h4.892zM21 12.535V12h2v8h-2v-.535a4 4 0 1 1 0-6.93zM19 18a2 2 0 1 0 0-4 2 2 0 0 0 0 4z"></path></g>
+  <g><path fill="none" d="M0 0h24v24H0z"></path><path d="M11.246 15H4.754l-2 5H.6L7 4h2l6.4 16h-2.154l-2-5zm-.8-2L8 6.885 5.554 13h4.892zM21 12.535V12h2v8h-2v-.535a4 4 0 1 1 0-6.93zM19 18a2 2 0 1 0 0-4 2 2 0 0 0 0 4z"></path></g>
+  </svg>
+</div>
+<div onClick={() => setFontSize('32px')} className={`sidebar__link--text sidebar__font--size-icon ${fontSize === '32px' ? 'sidebar__font--size-icon--active' : ''}`}>
+  <svg stroke="currentColor" fill="currentColor" strokeWidth="0" viewBox="0 0 24 24" className="sidebar__font--size-icon-xlarge" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><g><path fill="none" d="M0 0h24v24H0z"></path><path d="M11.246 15H4.754l-2 5H.6L7 4h2l6.4 16h-2.154l-2-5zm-.8-2L8 6.885 5.554 13h4.892zM21 12.535V12h2v8h-2v-.535a4 4 0 1 1 0-6.93zM19 18a2 2 0 1 0 0-4 2 2 0 0 0 0 4z"></path></g>
+  <g><path fill="none" d="M0 0h24v24H0z"></path><path d="M11.246 15H4.754l-2 5H.6L7 4h2l6.4 16h-2.154l-2-5zm-.8-2L8 6.885 5.554 13h4.892zM21 12.535V12h2v8h-2v-.535a4 4 0 1 1 0-6.93zM19 18a2 2 0 1 0 0-4 2 2 0 0 0 0 4z"></path></g>
+  </svg>
+</div>
+    </div>  )}
+    
     <div className='sidebar__bottom'>
+      
       <Link className='sidebar__link--wrapper' href= '/settings'>
       <div className={`sidebar__link--line ${(pathname === '/settings') ? 'active--tab' : ''}`}></div>
 
@@ -80,6 +110,8 @@ const Sidebar = () => {
       </div>
       <div className='sidebar__link--text'>Settings</div>
       </Link>
+     
+      </div>
       <div className='sidebar__link--wrapper sidebar__link--not-allowed'>
         <div className='sidebar__link--line'></div>
         <div className='sidebar__icon--wrapper'>
@@ -104,7 +136,7 @@ const Sidebar = () => {
   </div>
 </div>
  
-    </div>
+   
   )
 }
 
