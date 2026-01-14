@@ -1,6 +1,38 @@
+'use client'
+import { useAuthState } from 'react-firebase-hooks/auth';
+import { auth } from '@/app/FirebaseItems/firebase';
+import PlayerSkeleton from '../Skeletons/PlayerSkeleton';
+import { useModalStore } from '@/store/useModalStore'
+import './BookLogin.css'
 
+export default function Player({book :{ summary, author, title, audioLink, imageLink}} : {book : Book}) {
+    const openModal = useModalStore((state) => state.openModal);
+     const [ user, loading, error] = useAuthState(auth);
+     
+if (error) return <div>Error</div>;
+if (loading)
+    return
+        <PlayerSkeleton/>;
+    
+   if (!user){
+     return (
+    <div>
+      <div className='container'>
+        <div className='row'>
+            <div className='section__title page__title'>{title}</div>
+            <div className='settings__login--wrapper'>
+                <img alt='login' src='/login.png' />
+                <div className='settings__login--text'>Login To Your Account To Read And Listen To The Book</div>
+                <button className='btn settings__login--btn' onClick={() => openModal("logIn")}>Login</button>
+            </div>
+        </div>
+      </div>
+    </div>
+  )
+}
+    
+   
 
-export default function Player({book: { summary, author, title, audioLink, imageLink}} : {book : Book}) {
   return (
     <div>
       <div className="summary">

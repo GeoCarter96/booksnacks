@@ -27,7 +27,7 @@ const Sidebar = () => {
     }
   };
   useEffect(() => {
-  if (!loading && !user && pathname ==='/settings') {
+  if (!loading && !user && pathname ==='/settings' ) {
     router.push('/LoginPage');
   }
 }, [user, loading, router, pathname]);
