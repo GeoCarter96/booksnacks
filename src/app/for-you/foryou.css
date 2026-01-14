@@ -1221,7 +1221,9 @@ input {
     text-decoration: none;
     border-radius: 4px;
     max-width: 200px;
-    width: 100%
+    width: 100%;
+    display: block; 
+    overflow: hidden;
 }
 
 .for-you__recommended--books a:hover {

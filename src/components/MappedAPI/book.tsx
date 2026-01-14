@@ -1,15 +1,18 @@
-import React from 'react'
+'use client'
+import { useAuthState } from 'react-firebase-hooks/auth'
 import Link from 'next/link'
+import { auth } from '@/app/FirebaseItems/firebase'
 
-export default function Book({book: {id, title, author, subTitle, imageLink}} : {book : Book}) {
-
-
+export default function Book({book: {id, title, author, subTitle, imageLink, audioLink, subscriptionRequired}} : {book : Book}) {
+ const [user, loading] = useAuthState(auth);
+if (loading) return null; 
 
   return (
-    
+    <>
      <Link className='for-you__recommended--books-link' href={`/book/${id}`}>
-    
-<audio src="https://firebasestorage.googleapis.com/v0/b/summaristt.appspot.com/o/books%2Faudios%2Fhow-to-win-friends-and-influence-people.mp3?alt=media&amp;token=60872755-13fc-43f4-8b75-bae3fcd73991"></audio>
+     {subscriptionRequired && !user && (
+    <div className='book__pill book__pill--subscription-required'>Premium</div>
+ )}
 <figure className='book__image--wrapper' >
 <img className="book__image" src={imageLink} alt="book" ></img>
 </figure>
@@ -32,8 +35,10 @@ export default function Book({book: {id, title, author, subTitle, imageLink}} : 
 <div className='recommended__book--details-text'>4.4</div>
 </div>
 </div>
+<audio src={audioLink}></audio>
 </Link>
 
-   
+
+   </>
   )
 }

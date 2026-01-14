@@ -30,7 +30,7 @@ export default  function GetBooks({status}: {status: 'recommended' | 'suggested'
               {books?.map(book => (
                 <div  key={book.id}>
                <Book  book={book}/>  
-                {book.subscriptionRequired && <span className="book__pill book__pill--subscription-required">Premium</span>}
+           
                </div>
                  ))}
                  
