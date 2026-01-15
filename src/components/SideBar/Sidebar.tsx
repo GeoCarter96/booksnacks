@@ -7,19 +7,20 @@ import './sidebar.css'
  import { signOut } from 'firebase/auth';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { useState, useEffect } from "react";
-
+import { useSidebarStore } from '@/store/useSidebarStore';
 import useFontStore from '@/store/useFontStore';
 
  
 const Sidebar = () => {
   const [user, loading] = useAuthState(auth); 
-  
+   const isOpen = useSidebarStore((state) => state.isOpen);
+  const close = useSidebarStore((state) => state.closeSidebar);
   const fontSize = useFontStore((state) => state.fontSize);
 const setFontSize = useFontStore((state) => state.setFontSize);
     const pathname = usePathname();
    const openModal = useModalStore((state) => state.openModal);
  const [mounted, setMounted] = useState(false);
-
+const authText = !mounted || loading ? "..." : user ? "Logout" : "Login";
   
   useEffect(() => {
     setMounted(true);
@@ -42,8 +43,9 @@ const setFontSize = useFontStore((state) => state.setFontSize);
      
   return (
     <div>
-          
-      
+             {isOpen && <div className="sidebar__overlay " onClick={close} />}
+
+       <aside className= "sidebar--open" >
       <div className='sidebar__overlay sidebar__overlay--hidden'></div>
 <div className= 'sidebar sidebar--closed'  >
   <div className='sidebar__logo'>
@@ -130,19 +132,17 @@ const setFontSize = useFontStore((state) => state.setFontSize);
       <div className='sidebar__link--wrapper' onClick={handleAuthAction}>
         <div className='sidebar__link--line'></div>
         <div className='sidebar__icon--wrapper'>
-          {!mounted || loading ? ('...'
-          ) : user ? (
-                    <svg stroke="currentColor" fill="none" strokeWidth="2" viewBox="0 0 24 24" strokeLinecap="round" strokeLinejoin="round" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path><polyline points="16 17 21 12 16 7"></polyline><line x1="21" y1="12" x2="9" y2="12"></line></svg>
-        ) : (
+         
           <svg stroke="currentColor" fill="none" strokeWidth="2" viewBox="0 0 24 24" strokeLinecap="round" strokeLinejoin="round" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path><polyline points="16 17 21 12 16 7"></polyline><line x1="21" y1="12" x2="9" y2="12"></line></svg>
-        )}
+      
           </div>
        
-        <div className='sidebar__link--text'>{user ? "Logout" : "Login"}</div>
+        <div className='sidebar__link--text'>{authText}</div>
        
       </div>
     </div>
   </div>
+   </aside>
 </div>
  
    

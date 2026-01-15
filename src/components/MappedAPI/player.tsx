@@ -6,6 +6,7 @@ import { useModalStore } from '@/store/useModalStore'
 import { ClipLoader } from "react-spinners";
 import AudioPlayer from '../AudioPlayer/AudioPlayer';
 
+
 export default function Player( {book :{ summary,  title, author, imageLink, audioLink}} : {book : Book}) {
     const openModal = useModalStore((state) => state.openModal);
      const [ user, loading, error] = useAuthState(auth);
@@ -51,15 +52,16 @@ if (loading){
             <div className="audio__book--summary-text"  style={{ fontSize: fontSize }}>
                 {summary}
                 </div>
-<AudioPlayer
+
+        </div>
+         
+      </div>
+       <AudioPlayer
                   audioSrc={audioLink}
                   title={title}
                   author={author}
                   imageLink={imageLink}
                 />
-        </div>
-         
-      </div>
     </div>
   )
 }

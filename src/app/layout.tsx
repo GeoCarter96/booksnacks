@@ -9,7 +9,6 @@ import ModalManager from "@/components/Modal/ModalManager";
 
 
 
-
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
@@ -43,6 +42,7 @@ export default function RootLayout({
       
         {children} 
             
+        
       </body>
     </html>
   );
