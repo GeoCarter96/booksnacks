@@ -601,9 +601,10 @@ input {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    height: calc(-140px + 100vh);
+    height: calc(100vh - 60px);
     padding-bottom: 20px;
-    overflow-y: auto
+    overflow-y: auto;
+    
 }
 
 .sidebar__top {

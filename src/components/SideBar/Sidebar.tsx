@@ -51,7 +51,7 @@ const authText = !mounted || loading ? "..." : user ? "Logout" : "Login";
   <div className='sidebar__logo'>
     <img src='/logo.png'/>
   </div>
-  <div className='sidebar__wrapper'>
+  <div className='sidebar__wrapper' style={{height: 'calc(-120px + 100vh)'}}>
     <div className='sidebar__top'>
  <Link className='sidebar__link--wrapper' href='/for-you'>
 

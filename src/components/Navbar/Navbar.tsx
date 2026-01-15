@@ -15,33 +15,37 @@ interface Book {
 const Navbar = ({ book }: { book?: Book }) => {
 const [query, setQuery] = useState("");
   const [results, setResults] = useState<Book[]>([]); 
-  const [isSearching, setIsSearching] = useState(false);
+  
   const [loading, setLoading] = useState(false);
-   const propTitle = book?.title;
-  const propAuthor = book?.author;
-  const propImage = book?.imageLink;
+  
 const toggle = useSidebarStore((state) => state.toggleSidebar);
    useEffect(() => {
   
+    if (query.length < 3) {
+      setResults([]);
+      return;
+    }
+    
+
+ 
     const delayDebounce = setTimeout(async () => {
-      if (query.length > 2) {
-        setIsSearching(true);
-        try {
-          const res = await fetch(`https://us-central1-summaristt.cloudfunctions.net/getBooksByAuthorOrTitle?search=${query}`);
-          const data = await res.json();
-          setResults(data.books || []); 
-        } catch (err) {
-          console.error("Search failed", err);
-        } finally {
-          setIsSearching(false);
-        }
-      } else {
-        setResults([]);
+      setLoading(true);
+      try {
+        const response = await fetch(
+          `https://us-central1-summaristt.cloudfunctions.net/getBooksByAuthorOrTitle?search=${query}`
+        );
+        const data = await response.json();
+          setResults(Array.isArray(data) ? data : data.books || []);
+      } catch (error) {
+        console.error("Search Error:", error);
+      } finally {
+        setLoading(false);
       }
     }, 500);
- return () => clearTimeout(delayDebounce);
-  }, [query]);
 
+   
+    return () => clearTimeout(delayDebounce);
+  }, [query]);
 
   return (
 <div>
@@ -62,17 +66,7 @@ const toggle = useSidebarStore((state) => state.toggleSidebar);
 </div>
   
        
-          {results.map((item) => (
- 
-  <div key={item.id} className="search-item">
-    
-    <img src={propImage} alt={propTitle} width={40} height={60} />
-    <div className="search-item-info">
-      <p className="search-item-title">{propTitle}</p>
-      <p className="search-item-author">{propAuthor}</p>
-    </div>
-  </div>
-))}
+      
 {results.length > 0 && (
   <div className="search-dropdown">
     {results.map((item) => (

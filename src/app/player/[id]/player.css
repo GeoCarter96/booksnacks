@@ -32,7 +32,11 @@
     white-space: pre-line;
     padding: 24px;
     max-width: 800px;
-    margin: 0 auto
+    margin: 0 auto;
+     display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  
 }
 
 .audio__book--summary-title {
@@ -47,7 +51,8 @@
 .audio__book--summary-text {
     white-space: pre-line;
     line-height: 1.4;
-    color: #032b41
+    color: #032b41;
+     
 }
 
 .audio__track--wrapper {

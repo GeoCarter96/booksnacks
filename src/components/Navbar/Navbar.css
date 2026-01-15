@@ -597,14 +597,7 @@ input {
     transition: all .3s
 }
 
-.sidebar__wrapper {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    height: calc(100vh - 60px);
-    padding-bottom: 20px;
-    overflow-y: auto
-}
+
 
 .sidebar__top {
     flex: 1 1;
