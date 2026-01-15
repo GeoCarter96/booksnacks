@@ -1,36 +1,108 @@
-import { useState } from 'react';
-import { RiMenuAddLine } from 'react-icons/ri';
-import { TrackInfo } from './TrackInfo'
-import { Controls } from './Controls';
-import { ProgressBar } from './ProgressBar';
-import { VolumeControl } from './VolumeControl';
-import { PlayList} from './PlayList'
-export const AudioPlayer= () =>{
-  const [openDrawer,setOpenDrawer] = useState(false);
+'use client'
+import { RiForward10Line, RiReplay10Line, RiPlayFill, RiPauseFill } from "react-icons/ri";
+
+import './AudioPlayer.css'
+import { useEffect, useRef, useState } from "react";
+
+type Props = {
+  audioSrc: string;
+  title: string;
+  author: string;
+  imageLink: string;
+};
+
+export default function AudioPlayer({ audioSrc, title, author, imageLink }: Props) {
+      const audioRef = useRef<HTMLAudioElement | null>(null);
+
+  const [isPlaying, setIsPlaying] = useState(false);
+  const [currentTime, setCurrentTime] = useState(0);
+  const [duration, setDuration] = useState(0);
+   useEffect(() => {
+    const audio = audioRef.current;
+    if (!audio) return;
+      const updateTime = () => setCurrentTime(audio.currentTime);
+    const setMeta = () => setDuration(audio.duration);
+
+    audio.addEventListener("timeupdate", updateTime);
+    audio.addEventListener("loadedmetadata", setMeta);
+
+    return () => {
+      audio.removeEventListener("timeupdate", updateTime);
+      audio.removeEventListener("loadedmetadata", setMeta);
+    };
+  }, []);
+   const seek = (time: number) => {
+    if (!audioRef.current) return;
+    audioRef.current.currentTime = time;
+  };
+
+  const formatTime = (time: number) => {
+    const min = Math.floor(time / 60);
+    const sec = Math.floor(time % 60).toString().padStart(2, "0");
+    return `${min}:${sec}`;
+  };
+
+ const togglePlay = () => {
+    if (!audioRef.current) return;
+
+    if (isPlaying) {
+      audioRef.current.pause();
+    } else {
+      audioRef.current.play();
+    }
+    setIsPlaying(!isPlaying);
+  };
+
   return (
     <div>
-      <div className="min-h-8 bg-[#2e2d2d] flex flex-col gap-9 lg:flex-row justify-between items-center text-white p-[0.5rem_10px]">
-        <TrackInfo />
-        <div className="w-full flex flex-col items-center gap-1 m-auto flex-1">
-          <Controls />
-          <ProgressBar />
-        </div>
-        <div className="flex items-center gap-2 text-gray-400">
-          <VolumeControl />
-          <button onClick={() => setOpenDrawer((prev) => !prev)}>
-            <RiMenuAddLine />
-          </button>
-        </div>
-      </div>
-      <div
-        className={`transition-max-height duration-300 ease-in-out overflow-hidden ${
-          openDrawer? 'max-h-72' : 'max-h-0'
-        }`}
-      >
-        <div className="bg-[#4c4848] text-white max-h-72 overflow-y-auto">
-          <PlayList />
-        </div>
+  <div className="audio__wrapper">
+    <audio ref={audioRef} src={audioSrc}></audio>
+
+   
+    <div className="audio__track--wrapper">
+      <figure className="audio__track--image-mask">
+        <figure className="book__image--wrapper">
+          <img className="book__image" src={imageLink} alt={title} />
+        </figure>
+      </figure>
+      <div className="audio__track--details-wrapper">
+        <div className="audio__track--title">{title}</div>
+        <div className="audio__track--author">{author}</div>
       </div>
     </div>
-  );
-};
+
+  
+    <div className="audio__controls--wrapper">
+      <div className="audio__controls">
+        <button className="audio__controls--btn" onClick={() => seek(currentTime - 10)}>
+          <RiReplay10Line />
+        </button>
+        <button className="audio__controls--btn audio__controls--btn-play" onClick={togglePlay}>
+          {isPlaying ? <RiPauseFill /> : <RiPlayFill />}
+        </button>
+        <button className="audio__controls--btn" onClick={() => seek(currentTime + 10)}>
+          <RiForward10Line />
+        </button>
+      </div>
+    </div>
+
+    
+    <div className="audio__progress--wrapper">
+      <div className="audio__time">{formatTime(currentTime)}</div>
+      <input 
+        type='range' 
+        min={0} 
+        max={duration || 0} 
+        value={currentTime} 
+        className="audio__progress--bar"  
+        onChange={(e) => seek(Number(e.target.value))} 
+      />
+      <div className="audio__time">{formatTime(duration)}</div>
+    </div>
+    
+  </div> {/* <--- THE WRAPPER NOW CLOSES HERE */}
+</div>
+
+    
+  )
+}

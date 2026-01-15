@@ -6,6 +6,7 @@ import './sidebar.css'
  import { auth } from '@/app/FirebaseItems/firebase';
  import { signOut } from 'firebase/auth';
 import { useAuthState } from 'react-firebase-hooks/auth';
+import { useState, useEffect } from "react";
 
 import useFontStore from '@/store/useFontStore';
 
@@ -13,9 +14,16 @@ import useFontStore from '@/store/useFontStore';
 const Sidebar = () => {
   const [user, loading] = useAuthState(auth); 
   
-  const { fontSize, setFontSize } = useFontStore();
+  const fontSize = useFontStore((state) => state.fontSize);
+const setFontSize = useFontStore((state) => state.setFontSize);
     const pathname = usePathname();
    const openModal = useModalStore((state) => state.openModal);
+ const [mounted, setMounted] = useState(false);
+
+  
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
  
 
@@ -122,7 +130,8 @@ const Sidebar = () => {
       <div className='sidebar__link--wrapper' onClick={handleAuthAction}>
         <div className='sidebar__link--line'></div>
         <div className='sidebar__icon--wrapper'>
-          {user ? (
+          {!mounted || loading ? ('...'
+          ) : user ? (
                     <svg stroke="currentColor" fill="none" strokeWidth="2" viewBox="0 0 24 24" strokeLinecap="round" strokeLinejoin="round" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path><polyline points="16 17 21 12 16 7"></polyline><line x1="21" y1="12" x2="9" y2="12"></line></svg>
         ) : (
           <svg stroke="currentColor" fill="none" strokeWidth="2" viewBox="0 0 24 24" strokeLinecap="round" strokeLinejoin="round" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path><polyline points="16 17 21 12 16 7"></polyline><line x1="21" y1="12" x2="9" y2="12"></line></svg>

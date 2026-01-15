@@ -9,6 +9,7 @@ import ModalManager from "@/components/Modal/ModalManager";
 
 
 
+
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
@@ -30,6 +31,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) { const pathname = usePathname();
   const hideNavbar = pathname ==='/';
+  
   return (
     <html lang="en">
       <body
@@ -38,6 +40,7 @@ export default function RootLayout({
         {!hideNavbar && <Navbar/>}
          {!hideNavbar && <Sidebar/>}
       <ModalManager/>
+      
         {children} 
             
       </body>

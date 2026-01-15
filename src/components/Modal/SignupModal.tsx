@@ -24,7 +24,7 @@ const pathname = usePathname();
   if (msg) setMsg(""); 
 };
 
-   const handleSignup = async (e) => {
+   const handleSignup = async (e: React.FormEvent) => {
     e.preventDefault();
      try {
     await createUserWithEmailAndPassword(auth, email, password);

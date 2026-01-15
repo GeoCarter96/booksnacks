@@ -1,8 +1,15 @@
 import { create } from 'zustand';
 
-const useFontStore = create((set) => ({
-  fontSize: '18px', 
+interface FontState {
+  fontSize: string;
+  setFontSize: (size: string) => void;
+}
+
+
+const useFontStore = create<FontState>((set) => ({
+  fontSize: '16',
   setFontSize: (size) => set({ fontSize: size }),
 }));
+
 
 export default useFontStore;

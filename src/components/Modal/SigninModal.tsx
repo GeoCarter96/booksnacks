@@ -26,7 +26,7 @@ const [isGuestLoading, setIsGuestLoading] = useState(false);
   if (msg) setMsg(""); 
 };
 
-const handleLogin = async (e) => {
+const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsGuestLoading(true);
     try {
