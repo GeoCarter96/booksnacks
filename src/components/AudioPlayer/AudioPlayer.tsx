@@ -100,7 +100,7 @@ export default function AudioPlayer({ audioSrc, title, author, imageLink }: Prop
       <div className="audio__time">{formatTime(duration)}</div>
     </div>
     
-  </div> {/* <--- THE WRAPPER NOW CLOSES HERE */}
+  </div> 
 </div>
 
     

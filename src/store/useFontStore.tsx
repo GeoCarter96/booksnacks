@@ -7,7 +7,7 @@ interface FontState {
 
 
 const useFontStore = create<FontState>((set) => ({
-  fontSize: '16',
+  fontSize: '22px',
   setFontSize: (size) => set({ fontSize: size }),
 }));
 
