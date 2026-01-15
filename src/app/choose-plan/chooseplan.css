@@ -1536,7 +1536,7 @@ input {
     text-align: center
 }
 
-.finished__books--block-wrapper:last-childs {
+.finished__books--block-wrapper:last-child {
     margin-bottom: 0
 }
 

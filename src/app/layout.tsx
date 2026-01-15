@@ -29,7 +29,8 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) { const pathname = usePathname();
-  const hideNavbar = pathname ==='/';
+ const hideNavbar = pathname === '/' || pathname === '/choose-plan';
+
   
   return (
     <html lang="en">

@@ -1,6 +1,6 @@
 'use client'
 import { useAuthState } from 'react-firebase-hooks/auth';
-import { auth } from '@/app/FirebaseItems/firebase';
+import { auth } from '@/app/FirebaseItems/firebase'
 import SingleBookSk from '../Skeletons/SingleBookSk';
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';

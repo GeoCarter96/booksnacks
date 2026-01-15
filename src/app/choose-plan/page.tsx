@@ -1,6 +1,52 @@
+'use client'
+import { initFirebase } from '../FirebaseItems/firebase'
 import './chooseplan.css'
+import { useEffect, useState } from 'react'
+import { getAuth } from 'firebase/auth'
+import { getPremiumStatus } from '../Stripe/PremiumStatus';
 
+import { Stripe } from '../Stripe/Stripe';
+import { useRouter } from 'next/navigation';
 export default function ChoosePlan() {
+const app =initFirebase();
+const auth = getAuth(app);
+
+const userName = auth.currentUser?.displayName;
+const email = auth.currentUser?.email;
+const router = useRouter();
+const  [isPremium, setIsPremium] = useState(false);
+const [premiumPlus, setPremiumPlus ] = useState(false)
+const [selectedPlan, setSelectedPlan] = useState('plus');
+const [openIndex, setOpenIndex] = useState<number | null>(null);
+
+const toggleAccordion = (index: number) => {
+     console.log("Opening card:", index);
+  setOpenIndex(openIndex === index ? null : index);
+};
+  useEffect(() => {
+    const checkPremium = async () => {
+      const newPremiumStatus = auth.currentUser
+        ? await getPremiumStatus(app)
+        : false;
+      setIsPremium(newPremiumStatus);
+    };
+    checkPremium();
+  }, [app, auth.currentUser?.uid]);
+const upgradeToPremium = async () => {
+    const priceId = 'prod_TnUF3zJZOVtKbz';
+    const checkoutUrl = await Stripe(app, priceId)
+    router.push(checkoutUrl);
+    console.log('Upgrade to Premium')
+}
+
+const upgradeToPremiumPlus = async () => {
+    const priceId2 = 'prod_TnUFRKAyAfZDdx';
+const checkoutUrl2 = await Stripe(app,priceId2)
+router.push(checkoutUrl2);
+console.log('Upgrade to Premium Plus')
+}
+
+
   return (
     <div>
       <div id='__next'>
@@ -54,9 +100,10 @@ export default function ChoosePlan() {
                         <div className='section__title'>
                             Choose The Plan That Fits You
                         </div>
-                        <div className='plan__card plan__card--active'>
+                        <div  className={`plan__card ${selectedPlan === 'plus' ? 'plan__card--active' : ''}`}
+      onClick={() => setSelectedPlan('plus')}>
                             <div className='plan__card--circle'>
-                                <div className='plan__card--dot'></div>
+                                {selectedPlan === 'plus' && <div className='plan__card--dot'></div>}
                             </div>
                             <div className='plan__card--content'>
                                 <div className='plan__card--title'>
@@ -73,11 +120,15 @@ export default function ChoosePlan() {
                         <div className='plan__card--separator'>
                             <div className='plan__separator'>Or</div>
                         </div>
-                        <div className='plan__card'>
-                            <div className='plan__card--circle'></div>
+                        <div  className={`plan__card ${selectedPlan === 'basic' ? 'plan__card--active' : ''}`}
+      onClick={() => setSelectedPlan('basic')}>
+                            <div className='plan__card--circle'>
+                                 {selectedPlan === 'basic' && <div className='plan__card--dot'></div>}
+                            </div>
+                            
                             <div className='plan__card--content'>
                                 <div className='plan__card--title'>
-                                    Premium Monthly 
+                                    Premium Basic Monthly 
                                 </div>
                                 <div className='plan__card--price'>
                                     $9.99/Month 
@@ -89,66 +140,76 @@ export default function ChoosePlan() {
                         </div>
                         <div className='plan__card--cta'>
                             <span className='btn--wrapper'>
-                                <button className='btn'>
-                                    <span>Start Your Free 7-Day Trial</span>
+                                <button className='btn' style={{width: '300px'}}>
+                                    <span>{selectedPlan === 'plus' ? 'Start Your Free 7-Day Trial' : 'Start Your First Month'}</span>
                                 </button>
                             </span>
                             <div className='plan__disclaimer'>
-                                Cancel Your Trial At Any Time Before It Ends, And You Won't Be Charged 
+                                {selectedPlan === 'basic' 
+    ? "30 Day Money Back Guarantee, No Questions Asked" 
+    : "Cancel Your Trial At Any Time Before It Ends, And You Won't Be Charged"}
                             </div>
                         </div>
                         <div className='faq__wraapper'>
                             <div className='accordion__card'>
-                                <div className='accordion__header'>
+                                <div className='accordion__header' onClick={() => toggleAccordion(0)}>
                                     <div className='accordion__title'>
                                         How Does The Free 7-Day Trial Work?
                                     </div>
-                                    <svg stroke="currentColor" fill="currentColor" strokeWidth="0" viewBox="0 0 16 16" className="accordion__icon " height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z"></path></svg>
+                                    <svg className={`accordion__icon ${openIndex === 0 ? 'accordion__icon--rotate' : ''}`}  stroke="currentColor" fill="currentColor" strokeWidth="0" viewBox="0 0 16 16"  height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path fillRule="evenodd" d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z"></path></svg>
                                 </div>
+                                {openIndex === 1 && 
                                 <div className='collapse'>
                                     <div className='accordion__body'>
                                         Begin Your Complimentary 7-Day Trial With A Summarist Annual Membership. You Are Under No Obligation To Continue Your Subscription, And You Will Only Be Billed When The Trial Period Expires. With Premium Access, You Can Learn At Your Own Pace And As Frequently As You Desire, And You May Terminate Your Subscription Prior To The Conclusion Of The 7-Day Free Trial.
                                     </div>
                                 </div>
+                                 }
                             </div>
                              <div className='accordion__card'>
-                                <div className='accordion__header'>
+                                <div className='accordion__header'onClick={() => toggleAccordion(1)}>
                                     <div className='accordion__title'>
                                         Can I Switch Subscriptions From Monthly To Yearly, Or Yearly To Monthly?
                                     </div>
-                                    <svg stroke="currentColor" fill="currentColor" strokeWidth="0" viewBox="0 0 16 16" className="accordion__icon " height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z"></path></svg>
+                                    <svg className={`accordion__icon ${openIndex === 1? 'accordion__icon--rotate' : ''}`} stroke="currentColor" fill="currentColor" strokeWidth="0" viewBox="0 0 16 16"  height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path fillRule="evenodd" d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z"></path></svg>
                                 </div>
+                                  {openIndex === 1 && 
                                 <div className='collapse'>
                                     <div className='accordion__body'>
                                        While An Annual Plan Is Active, It Is Not Feasible To Switch To A Monthly Plan. However, Once The Current Month Ends, Transitioning From A Monthly Plan To An Annual Plan Is An Option.
                                     </div>
                                 </div>
+                                 }
                              </div>
                               <div className='accordion__card'>
-                                <div className='accordion__header'>
+                                <div className='accordion__header' onClick={() => toggleAccordion(2)}>
                                     <div className='accordion__title'>
                                         What's Included In The Premium Plan?
                                     </div>
-                                    <svg stroke="currentColor" fill="currentColor" strokeWidth="0" viewBox="0 0 16 16" className="accordion__icon " height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z"></path></svg>
+                                    <svg className={`accordion__icon ${openIndex === 2 ? 'accordion__icon--rotate' : ''}`} stroke="currentColor" fill="currentColor" strokeWidth="0" viewBox="0 0 16 16"  height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path fillRule="evenodd" d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z"></path></svg>
                                 </div>
+                                 {openIndex === 2 && 
                                 <div className='collapse'>
                                     <div className='accordion__body'>
                                         Premium Membership Provides You With The Ultimate Summarist Experience, Including Unrestricted Entry To Many Best-Selling Books High-Quality Audio, The Ability To Download Titles For Offline Reading, And The Option To Send Your Reads To Your Kindle.
                                     </div>
                                 </div>
+                                  }
                               </div>
                                <div className='accordion__card'>
-                                <div className='accordion__header'>
+                                <div className='accordion__header' onClick={() => toggleAccordion(3)}>
                                     <div className='accordion__title'>
                                        Can I Cancel During My Trial Or Subscription?
                                     </div>
-                                    <svg stroke="currentColor" fill="currentColor" strokeWidth="0" viewBox="0 0 16 16" className="accordion__icon " height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z"></path></svg>
+                                    <svg className={`accordion__icon ${openIndex === 3 ? 'accordion__icon--rotate' : ''}`} stroke="currentColor" fill="currentColor" strokeWidth="0" viewBox="0 0 16 16"  height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path fillRule="evenodd" d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z"></path></svg>
                                 </div>
+                                 {openIndex === 3 && 
                                 <div className='collapse'>
                                     <div className='accordion__body'>
                                         You Will Not Be Charged If You Cancel Your Trial Before Its Conclusion. While You Will Not Have Complete Access To The Entire Summarist Library, You Can Still Expand Your Knowledge With One Curated Book Per Day.
                                     </div>
                                 </div>
+                                  }
                                </div>
                         </div>
                     </div>

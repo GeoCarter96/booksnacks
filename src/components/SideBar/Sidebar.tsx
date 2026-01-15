@@ -3,7 +3,7 @@ import './sidebar.css'
  import Link from 'next/link';
  import { usePathname } from 'next/navigation';
  import { useModalStore } from '@/store/useModalStore';
- import { auth } from '@/app/FirebaseItems/firebase';
+ import { auth } from '@/app/FirebaseItems/firebase'
  import { signOut } from 'firebase/auth';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { useState, useEffect } from "react";

@@ -1,6 +1,6 @@
 'use client'
 import { useAuthState } from 'react-firebase-hooks/auth';
-import { auth } from '@/app/FirebaseItems/firebase';
+import { auth } from '@/app/FirebaseItems/firebase'
 import useFontStore from '@/store/useFontStore';
 import { useModalStore } from '@/store/useModalStore'
 import { ClipLoader } from "react-spinners";

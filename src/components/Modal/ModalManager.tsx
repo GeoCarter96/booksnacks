@@ -4,7 +4,7 @@ import SignupModal from "@/components/Modal/SignupModal"
 import { useModalStore } from "@/store/useModalStore"
 import { useEffect } from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
-import { auth } from "@/app/FirebaseItems/firebase";
+import { auth } from '@/app/FirebaseItems/firebase'
 
 
 export default function ModalManager() {
