@@ -15,7 +15,6 @@ const userName = auth.currentUser?.displayName;
 const email = auth.currentUser?.email;
 const router = useRouter();
 const  [isPremium, setIsPremium] = useState(false);
-const [premiumPlus, setPremiumPlus ] = useState(false)
 const [selectedPlan, setSelectedPlan] = useState('plus');
 const [openIndex, setOpenIndex] = useState<number | null>(null);
 
@@ -32,7 +31,7 @@ const toggleAccordion = (index: number) => {
     };
     checkPremium();
   }, [app, auth.currentUser?.uid]);
-const upgradeToPremium = async () => {
+const upgradeToPremiumBasic = async () => {
     const priceId = 'prod_TnUF3zJZOVtKbz';
     const checkoutUrl = await Stripe(app, priceId)
     router.push(checkoutUrl);
