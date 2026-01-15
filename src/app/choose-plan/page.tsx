@@ -152,19 +152,19 @@ console.log('Upgrade to Premium Plus')
                         </div>
                         <div className='faq__wraapper'>
                             <div className='accordion__card'>
-                                <div className='accordion__header' onClick={() => toggleAccordion(0)}>
+                                <div className='accordion__header' onClick={() => toggleAccordion(0)} >
                                     <div className='accordion__title'>
                                         How Does The Free 7-Day Trial Work?
                                     </div>
                                     <svg className={`accordion__icon ${openIndex === 0 ? 'accordion__icon--rotate' : ''}`}  stroke="currentColor" fill="currentColor" strokeWidth="0" viewBox="0 0 16 16"  height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path fillRule="evenodd" d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z"></path></svg>
                                 </div>
-                                {openIndex === 1 && 
-                                <div className='collapse'>
+                                
+                                <div className={`collapse ${openIndex === 0 ? 'show' : ''}`} >
                                     <div className='accordion__body'>
                                         Begin Your Complimentary 7-Day Trial With A Summarist Annual Membership. You Are Under No Obligation To Continue Your Subscription, And You Will Only Be Billed When The Trial Period Expires. With Premium Access, You Can Learn At Your Own Pace And As Frequently As You Desire, And You May Terminate Your Subscription Prior To The Conclusion Of The 7-Day Free Trial.
                                     </div>
                                 </div>
-                                 }
+                                 
                             </div>
                              <div className='accordion__card'>
                                 <div className='accordion__header'onClick={() => toggleAccordion(1)}>
@@ -173,13 +173,13 @@ console.log('Upgrade to Premium Plus')
                                     </div>
                                     <svg className={`accordion__icon ${openIndex === 1? 'accordion__icon--rotate' : ''}`} stroke="currentColor" fill="currentColor" strokeWidth="0" viewBox="0 0 16 16"  height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path fillRule="evenodd" d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z"></path></svg>
                                 </div>
-                                  {openIndex === 1 && 
-                                <div className='collapse'>
+                                 
+                                <div className={`collapse ${openIndex === 1 ? 'show' : ''}`}>
                                     <div className='accordion__body'>
                                        While An Annual Plan Is Active, It Is Not Feasible To Switch To A Monthly Plan. However, Once The Current Month Ends, Transitioning From A Monthly Plan To An Annual Plan Is An Option.
                                     </div>
                                 </div>
-                                 }
+                                 
                              </div>
                               <div className='accordion__card'>
                                 <div className='accordion__header' onClick={() => toggleAccordion(2)}>
@@ -188,13 +188,13 @@ console.log('Upgrade to Premium Plus')
                                     </div>
                                     <svg className={`accordion__icon ${openIndex === 2 ? 'accordion__icon--rotate' : ''}`} stroke="currentColor" fill="currentColor" strokeWidth="0" viewBox="0 0 16 16"  height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path fillRule="evenodd" d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z"></path></svg>
                                 </div>
-                                 {openIndex === 2 && 
-                                <div className='collapse'>
+                               
+                                <div className={`collapse ${openIndex === 2 ? 'show' : ''}`}>
                                     <div className='accordion__body'>
                                         Premium Membership Provides You With The Ultimate Summarist Experience, Including Unrestricted Entry To Many Best-Selling Books High-Quality Audio, The Ability To Download Titles For Offline Reading, And The Option To Send Your Reads To Your Kindle.
                                     </div>
                                 </div>
-                                  }
+                                  
                               </div>
                                <div className='accordion__card'>
                                 <div className='accordion__header' onClick={() => toggleAccordion(3)}>
@@ -203,13 +203,13 @@ console.log('Upgrade to Premium Plus')
                                     </div>
                                     <svg className={`accordion__icon ${openIndex === 3 ? 'accordion__icon--rotate' : ''}`} stroke="currentColor" fill="currentColor" strokeWidth="0" viewBox="0 0 16 16"  height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path fillRule="evenodd" d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z"></path></svg>
                                 </div>
-                                 {openIndex === 3 && 
-                                <div className='collapse'>
+                                
+                                <div className={`collapse ${openIndex === 3 ? 'show' : ''}`}>
                                     <div className='accordion__body'>
                                         You Will Not Be Charged If You Cancel Your Trial Before Its Conclusion. While You Will Not Have Complete Access To The Entire Summarist Library, You Can Still Expand Your Knowledge With One Curated Book Per Day.
                                     </div>
                                 </div>
-                                  }
+                                 
                                </div>
                         </div>
                     </div>
