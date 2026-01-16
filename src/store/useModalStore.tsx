@@ -16,10 +16,13 @@ interface ModalState {
 export const useModalStore = create<ModalState>((set) => ({
    isOpen: false,
    modalType: null, 
-  openModal: (type) => set({ 
-    isOpen: true, 
-    modalType: type 
-  }),
+  openModal: (type) => {
+    console.log("Store: Setting isOpen to true"); // Check if this hits your console
+    return set(() => ({ 
+      isOpen: true, 
+      modalType: type 
+  }));
+  },
 
   closeModal: () => set({ 
     isOpen: false, 

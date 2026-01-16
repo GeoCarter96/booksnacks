@@ -53,8 +53,8 @@ useEffect(() => {
 }, [user?.uid]);
 const handleUpgrade = () => {
   if (!user){
-    console.log("Guest detected! Opening modal...");
     openModal("logIn"); 
+    console.log("Store Updated:", useModalStore.getState())
      return;
   }
   setIsUpgrading(true);
