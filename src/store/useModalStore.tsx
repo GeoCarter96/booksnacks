@@ -17,7 +17,7 @@ export const useModalStore = create<ModalState>((set) => ({
    isOpen: false,
    modalType: null, 
   openModal: (type) => {
-    console.log("Store: Setting isOpen to true"); // Check if this hits your console
+    console.log("Store: Setting isOpen to true"); 
     return set(() => ({ 
       isOpen: true, 
       modalType: type 
