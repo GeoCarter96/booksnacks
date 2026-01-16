@@ -1,49 +1,51 @@
 'use client'
-import { initFirebase } from '../FirebaseItems/firebase'
 import './chooseplan.css'
-import { useEffect, useState } from 'react'
-import { getAuth } from 'firebase/auth'
-import { getPremiumStatus } from '../Stripe/PremiumStatus';
-
-import { Stripe } from '../Stripe/Stripe';
+import {  useState } from 'react'
 import { useRouter } from 'next/navigation';
-export default function ChoosePlan() {
-const app =initFirebase();
-const auth = getAuth(app);
+import { db } from '../FirebaseItems/firebase';
+import { doc, setDoc }  from 'firebase/firestore'; 
+import { getAuth, onAuthStateChanged, User } from "firebase/auth"; 
+import { auth } from '../FirebaseItems/firebase';
+import { useEffect } from 'react';
 
-const userName = auth.currentUser?.displayName;
-const email = auth.currentUser?.email;
-const router = useRouter();
-const  [isPremium, setIsPremium] = useState(false);
+export default  function ChoosePlan() {
 const [selectedPlan, setSelectedPlan] = useState('plus');
+const [isSubmitting, setIsSubmitting] = useState(false);
 const [openIndex, setOpenIndex] = useState<number | null>(null);
+const router = useRouter();
+const [user, setUser] = useState<User | null>(null);
 
+useEffect(() => {
+  const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+    setUser(currentUser);
+  });
+  return () => unsubscribe();
+}, []);
 const toggleAccordion = (index: number) => {
      console.log("Opening card:", index);
   setOpenIndex(openIndex === index ? null : index);
 };
-  useEffect(() => {
-    const checkPremium = async () => {
-      const newPremiumStatus = auth.currentUser
-        ? await getPremiumStatus(app)
-        : false;
-      setIsPremium(newPremiumStatus);
-    };
-    checkPremium();
-  }, [app, auth.currentUser?.uid]);
-const upgradeToPremiumBasic = async () => {
-    const priceId = 'prod_TnUF3zJZOVtKbz';
-    const checkoutUrl = await Stripe(app, priceId)
-    router.push(checkoutUrl);
-    console.log('Upgrade to Premium')
-}
+  const handleSubscription = async () => {
+  setIsSubmitting(true);
+  
+  
+   try {
+      
+      if (user?.uid) {
+        const userRef = doc(db, 'users', user.uid);
+        await setDoc(userRef, { 
+          plan: selectedPlan,
+          updatedAt: new Date() 
+        }, { merge: true }); 
+      }
 
-const upgradeToPremiumPlus = async () => {
-    const priceId2 = 'prod_TnUFRKAyAfZDdx';
-const checkoutUrl2 = await Stripe(app,priceId2)
-router.push(checkoutUrl2);
-console.log('Upgrade to Premium Plus')
-}
+      
+       router.push('/for-you');
+    } catch (error) {
+      console.error("Subscription error:", error);
+      setIsSubmitting(false); 
+    }
+  };
 
 
   return (
@@ -99,10 +101,10 @@ console.log('Upgrade to Premium Plus')
                         <div className='section__title'>
                             Choose The Plan That Fits You
                         </div>
-                        <div  className={`plan__card ${selectedPlan === 'plus' ? 'plan__card--active' : ''}`}
-      onClick={() => setSelectedPlan('plus')}>
+                        <div  className={`plan__card ${selectedPlan === 'premium-plus' ? 'plan__card--active' : ''}`}
+      onClick={() => setSelectedPlan('premium-plus')}>
                             <div className='plan__card--circle'>
-                                {selectedPlan === 'plus' && <div className='plan__card--dot'></div>}
+                                {selectedPlan === 'premium-plus' && <div className='plan__card--dot'></div>}
                             </div>
                             <div className='plan__card--content'>
                                 <div className='plan__card--title'>
@@ -119,15 +121,15 @@ console.log('Upgrade to Premium Plus')
                         <div className='plan__card--separator'>
                             <div className='plan__separator'>Or</div>
                         </div>
-                        <div  className={`plan__card ${selectedPlan === 'basic' ? 'plan__card--active' : ''}`}
-      onClick={() => setSelectedPlan('basic')}>
+                        <div  className={`plan__card ${selectedPlan === 'premium' ? 'plan__card--active' : ''}`}
+      onClick={() => setSelectedPlan('premium')}>
                             <div className='plan__card--circle'>
-                                 {selectedPlan === 'basic' && <div className='plan__card--dot'></div>}
+                                 {selectedPlan === 'premium' && <div className='plan__card--dot'></div>}
                             </div>
                             
                             <div className='plan__card--content'>
                                 <div className='plan__card--title'>
-                                    Premium Basic Monthly 
+                                    Premium  Monthly 
                                 </div>
                                 <div className='plan__card--price'>
                                     $9.99/Month 
@@ -139,12 +141,28 @@ console.log('Upgrade to Premium Plus')
                         </div>
                         <div className='plan__card--cta'>
                             <span className='btn--wrapper'>
-                                <button className='btn' style={{width: '300px'}}>
-                                    <span>{selectedPlan === 'plus' ? 'Start Your Free 7-Day Trial' : 'Start Your First Month'}</span>
-                                </button>
+                               <button 
+  className={`btn ${isSubmitting ? 'btn--loading' : ''}`} 
+  style={{
+    width: '300px', 
+    opacity: isSubmitting ? 0.7 : 1,
+    cursor: isSubmitting ? 'not-allowed' : 'pointer'
+  }}  
+  onClick={handleSubscription}
+  disabled={isSubmitting}
+>
+  {isSubmitting ? (
+    <div > Loading...</div> 
+  ) : (
+    <span>
+      {selectedPlan === 'premium-plus' ? 'Start Your Free 7-Day Trial' : 'Start Your First Month'}
+    </span>
+  )}
+</button>
+
                             </span>
                             <div className='plan__disclaimer'>
-                                {selectedPlan === 'basic' 
+                                {selectedPlan === 'premium' 
     ? "30 Day Money Back Guarantee, No Questions Asked" 
     : "Cancel Your Trial At Any Time Before It Ends, And You Won't Be Charged"}
                             </div>

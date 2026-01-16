@@ -1,5 +1,5 @@
 import { create } from 'zustand';
-import { useRouter } from 'next/navigation';
+
 
 
 type ModalType = "logIn" | "signUp" | null;
@@ -11,6 +11,7 @@ interface ModalState {
   setModalType: (type: "logIn" | "signUp") => void;
   
 }
+
 
 export const useModalStore = create<ModalState>((set) => ({
    

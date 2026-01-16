@@ -37,9 +37,10 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
+       
         {!hideNavbar && <Navbar/>}
          {!hideNavbar && <Sidebar/>}
-      <ModalManager/>
+       <ModalManager/>
       
         {children} 
             

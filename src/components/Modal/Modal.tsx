@@ -1,9 +1,9 @@
 "use client";
-import React, { useState } from 'react'
+
 import './Modal.css'
 import SignupModal from './SignupModal';
 import SigninModal from './SigninModal';
-
+import { useModalStore } from '@/store/useModalStore';
 
 interface ModalProps {
   isOpen: boolean;
@@ -15,18 +15,15 @@ interface ModalProps {
 
 const Modal = ({ isOpen, onClose, modalType, setModalType  }: ModalProps) => {
  if (!isOpen) return null;
-
+const ismodalType = useModalStore((state) => state.modalType);
+if (!ismodalType) return null;
 
  if (modalType === "logIn" && setModalType) {
     return <SigninModal setModalType={setModalType} onClose={onClose} />;
   } else {
     return <SignupModal onClose={onClose} setModalType={setModalType!} />;
   }
- /*return (
-
-<div>
-</div>
-)*/
+ 
 }
 
 export default Modal
