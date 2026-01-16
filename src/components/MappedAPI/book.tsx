@@ -6,9 +6,9 @@ import { useRef, useState } from 'react';
 
 export default function Book({book: {id, title,  author, subTitle, imageLink, audioLink, subscriptionRequired, averageRating}} : {book : Book}) {
  const [user, loading] = useAuthState(auth);
-if (loading) return null; 
- const [duration, setDuration] = useState(0);
+const [duration, setDuration] = useState(0);
   const audioRef = useRef<HTMLAudioElement>(null);
+  if (loading) return null; 
 const formatTime = (time: number) => {
     const min = Math.floor(time / 60);
     const sec = Math.floor(time % 60).toString().padStart(2, "0");

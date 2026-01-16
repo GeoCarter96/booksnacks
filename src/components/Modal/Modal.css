@@ -1,5 +1,5 @@
 .auth__wrapper {
-    position: fixed;
+    position: fixed !important;
     top: 0;
     left: 0;
     height: 100%;
@@ -11,7 +11,7 @@
 }
 .auth,.auth__wrapper {
     width: 100%;
-    z-index: 9999
+    z-index: 9999 !important;
 }
 
 .auth {

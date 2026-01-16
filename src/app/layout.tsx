@@ -40,10 +40,10 @@ export default function RootLayout({
        
         {!hideNavbar && <Navbar/>}
          {!hideNavbar && <Sidebar/>}
-       <Modal/>
-      <main>
+      
+      
         {children} 
-            </main>
+            <Modal/>
         
       </body>
     </html>

@@ -81,9 +81,9 @@ const handleGuestLogin = async () => {
 
   return (
     <div>
-<div id='__next'>
+
 <div className='wrapper wrapper__full'>
-<div className='sidebar__overlay sidebar__overlay--hidden'></div>
+
 <div className='auth__wrapper'>
 <div className='auth'>
 <div className='auth_content'>
@@ -124,7 +124,7 @@ const handleGuestLogin = async () => {
 </div>
 </div>
 
-</div>
+
    
   )
 }
