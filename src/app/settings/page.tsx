@@ -51,7 +51,9 @@ useEffect(() => {
 
   return () => unsubscribe();
 }, [user?.uid]);
-const handleUpgrade = () => {
+const handleUpgrade = (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+  e.stopPropagation();
   if (!user){
     openModal("logIn"); 
     console.log("Store Updated:", useModalStore.getState())
