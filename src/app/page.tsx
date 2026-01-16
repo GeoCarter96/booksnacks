@@ -77,10 +77,7 @@ const [mounted, setMounted] = useState(false);
        </div>
      </nav>
      <section id="landing">
-       <Modal isOpen={isModalOpen} 
-         onClose={() => setIsModalOpen(false)} 
-          modalType={modalType}
-           setModalType={setModalType}/>
+       <Modal />
         
        <div className="container">
          <div className="row">

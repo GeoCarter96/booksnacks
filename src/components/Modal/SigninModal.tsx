@@ -4,7 +4,7 @@ import './Modal.css'
 import { signInWithEmailAndPassword } from 'firebase/auth';
 import { auth } from '@/app/FirebaseItems/firebase'
 import { useRouter, usePathname } from 'next/navigation';
-import Link from 'next/link';
+
 import { signInAnonymously } from "firebase/auth";
 
 const SigninModal = ({

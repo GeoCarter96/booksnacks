@@ -1,7 +1,6 @@
 "use client";
 import './settings.css'
-import { useAuthState } from 'react-firebase-hooks/auth';
-import { auth } from '../FirebaseItems/firebase';
+
 import { useModalStore } from '@/store/useModalStore'
 import { useRouter } from 'next/navigation';
 import { useState, useEffect } from 'react';
@@ -19,7 +18,7 @@ const Settings = () => {
  const [user, setUser] = useState<User | null>(null);
   const [loading, setLoading] = useState(true);
   const openModal = useModalStore((state) => state.openModal);
-const setModalType = useModalStore((state) => state.setModalType);
+
 
   const auth = getAuth(app);
    const userId = user?.uid
@@ -55,9 +54,8 @@ useEffect(() => {
 const handleUpgrade = () => {
   if (!user){
     console.log("Guest detected! Opening modal...");
-    setModalType("signUp"); 
-    openModal("signUp");  
-    return;
+    openModal("logIn"); 
+     return;
   }
   setIsUpgrading(true);
   router.push('/choose-plan');

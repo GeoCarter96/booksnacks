@@ -9,15 +9,26 @@ interface ModalState {
   openModal: (type: "logIn" | "signUp") => void;
   closeModal: () => void;
   setModalType: (type: "logIn" | "signUp") => void;
-  
+   isOpen: boolean;
 }
 
 
 export const useModalStore = create<ModalState>((set) => ({
-   
+   isOpen: false,
    modalType: null, 
-  openModal: (type) => set({ modalType: type }),
-  closeModal: () => set({ modalType: null }),
-  setModalType: (type) => set({ modalType: type }),
+  openModal: (type) => set({ 
+    isOpen: true, 
+    modalType: type 
+  }),
+
+  closeModal: () => set({ 
+    isOpen: false, 
+    modalType: null 
+  }),
+
+  setModalType: (type) => set({ 
+    modalType: type 
+  }),
   
 }));
+  
