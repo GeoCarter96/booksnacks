@@ -19,11 +19,7 @@ const Settings = () => {
   const userId = user?.uid;
  const router = useRouter();
   
-  useEffect(() => {
-    console.log('🔍 Settings Component Mounted');
-    console.log('📦 openModal function:', openModal);
-    console.log('📦 useModalStore state:', useModalStore.getState());
-  }, []);
+  
 
   useEffect(() => {
     if (!userId) return;
@@ -51,43 +47,37 @@ const Settings = () => {
   }, [user?.uid]);
 
   const handleUpgrade = (e: React.MouseEvent<HTMLButtonElement>) => {
-    console.log('🚀 handleUpgrade called');
-    console.log('👤 Current user:', user);
+   
     
     e.preventDefault();
     e.stopPropagation();
     
     if (!user) {
-      console.log('❌ No user found, attempting to open login modal');
-      console.log('📦 openModal function type:', typeof openModal);
-      console.log('📦 Modal store state BEFORE:', useModalStore.getState());
+      
       
       openModal("logIn"); 
-      
-      console.log('📦 Modal store state AFTER:', useModalStore.getState());
-      console.log('✅ openModal("logIn") executed');
+     
       return;
     }
     
-    console.log('✅ User authenticated, navigating to /choose-plan');
+   
     router.push('/choose-plan');
   };
 
   const handleLoginButtonClick = () => {
-    console.log('🔘 Login button clicked (not logged in view)');
-    console.log('📦 openModal function:', openModal);
-    console.log('📦 Modal store state BEFORE:', useModalStore.getState());
+   
     
     openModal("logIn");
     
-    console.log('📦 Modal store state AFTER:', useModalStore.getState());
+  
   };
+  
    
  
   
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
-      console.log('🔐 Auth state changed:', currentUser?.email || 'No user');
+      
       setUser(currentUser);
       setLoading(false);
     });

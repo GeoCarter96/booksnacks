@@ -2251,35 +2251,54 @@ input {
     }
 }
 
-.search-container {
+
+.search__input--wrapper {
+  position: relative; 
   width: 100%;
-  max-width: 400px;
-  position: relative; /* Needed for absolute child */
 }
 
 .search-dropdown {
   position: absolute;
-  top: 100%; /* Directly below input */
+  top: 100%; 
   left: 0;
-  right: 0;
+  width: 100%;
   background: white;
-  border: 1px solid #ddd;
-  border-radius: 4px;
-  max-height: 300px;
+  border: 1px solid #e5e7eb;
+  border-top: none;
+  max-height: 400px;
+   min-height: 50px;
   overflow-y: auto;
-  z-index: 1000;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  z-index: 9999 !important; 
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 }
 
 .search-item {
   display: flex;
   align-items: center;
-  padding: 10px;
-  gap: 12px;
-  cursor: pointer;
-  border-bottom: 1px solid #eee;
+  padding: 12px;
+  gap: 16px;
+  text-decoration: none;
+  border-bottom: 1px solid #f3f4f6;
+  transition: background 0.2s;
 }
 
 .search-item:hover {
-  background-color: #f9f9f9;
+  background-color: #f9fafb;
+}
+
+.search-item-img {
+  width: 40px;
+  height: 60px;
+  object-fit: cover;
+}
+
+.search-item-title {
+  font-weight: bold;
+  font-size: 14px;
+  color: #032b41;
+}
+
+.search-item-author {
+  font-size: 12px;
+  color: #6b7280;
 }
