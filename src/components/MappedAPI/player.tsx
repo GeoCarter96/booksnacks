@@ -3,21 +3,26 @@ import { useAuthState } from 'react-firebase-hooks/auth';
 import { auth } from '@/app/FirebaseItems/firebase'
 import useFontStore from '@/store/useFontStore';
 import { useModalStore } from '@/store/useModalStore'
-import { ClipLoader } from "react-spinners";
+
 import AudioPlayer from '../AudioPlayer/AudioPlayer';
+import { useState, useEffect } from 'react';
 
 
 export default function Player( {book :{ summary,  title, author, imageLink, audioLink}} : {book : Book}) {
     const openModal = useModalStore((state) => state.openModal);
      const [ user, loading, error] = useAuthState(auth);
       const fontSize = useFontStore((state) => state.fontSize);
-
+const [isMounted, setIsMounted] = useState(false);
 if (error) return <div>Error</div>;
-if (loading){
+ useEffect(() => {
+    setIsMounted(true);
+  }, []);
+if (!isMounted){
+    
     return (
-    <div className="spinner__wrapper">
-       <ClipLoader color="#0365d2" loading={loading} size={50} />
-    </div>
+      <div className="spinner__wrapper" style={{ minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+        <span className="spinner" style={{ width: "50px" }} />
+      </div>
   );
 }
    
@@ -44,7 +49,7 @@ if (loading){
 
   return (
     <div>
-      <div className="summary">
+      <div className="summary"  suppressHydrationWarning>
         <div className="audio__book--summary" >
             <div className="audio__book--summary-title">
                 <b>{title}</b>
