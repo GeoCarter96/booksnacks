@@ -13,8 +13,7 @@ import useFontStore from '@/store/useFontStore';
  
 const Sidebar = () => {
   const [user, loading] = useAuthState(auth); 
-   const isOpen = useSidebarStore((state) => state.isOpen);
-  const close = useSidebarStore((state) => state.closeSidebar);
+    const { isOpen, closeSidebar } = useSidebarStore();
   const fontSize = useFontStore((state) => state.fontSize);
 const setFontSize = useFontStore((state) => state.setFontSize);
     const pathname = usePathname();
@@ -22,11 +21,19 @@ const setFontSize = useFontStore((state) => state.setFontSize);
  const [mounted, setMounted] = useState(false);
 const authText = !mounted || loading ? "..." : user ? "Logout" : "Login";
   
+const handleLinkClick = () => {
+  if (window.innerWidth <= 768) {
+    closeSidebar();
+  }
+};
+
   useEffect(() => {
     setMounted(true);
   }, []);
 
- 
+ useEffect(() => {
+  close(); 
+}, [pathname]);
 
      const handleAuthAction = () => {
     if (user) {
@@ -42,18 +49,18 @@ const authText = !mounted || loading ? "..." : user ? "Logout" : "Login";
 
      
   return (
-    <div>
-             {isOpen && <div className="sidebar__overlay " onClick={close} />}
+    <>
+             {isOpen && <div className="sidebar__overlay " onClick={closeSidebar} />}
 
-       <aside className= "sidebar--open" >
+       <aside className={`sidebar ${isOpen ? "sidebar--opened" : "sidebar--closed"}`} >
       <div className='sidebar__overlay sidebar__overlay--hidden'></div>
-<div className= 'sidebar sidebar--closed'  >
+
   <div className='sidebar__logo'>
     <img src='/logo.png'/>
   </div>
-  <div className='sidebar__wrapper' style={{height: 'calc(-120px + 100vh)'}}>
+  <div className='sidebar__wrapper' style={{height: 'calc(100vh - 120px)'}}>
     <div className='sidebar__top'>
- <Link className='sidebar__link--wrapper' href='/for-you'>
+ <Link className='sidebar__link--wrapper' href='/for-you' onClick={handleLinkClick}>
 
       <div className={`sidebar__link--line ${ pathname === '/for-you' ? 'active--tab' : ''}`}></div>
       <div className='sidebar__icon--wrapper'>
@@ -112,7 +119,7 @@ const authText = !mounted || loading ? "..." : user ? "Logout" : "Login";
     
     <div className='sidebar__bottom'>
       
-      <Link className='sidebar__link--wrapper' href= '/settings'>
+      <Link className='sidebar__link--wrapper' href= '/settings' onClick={handleLinkClick}>
       <div className={`sidebar__link--line ${(pathname === '/settings') ? 'active--tab' : ''}`}></div>
 
       <div className='sidebar__icon--wrapper'>
@@ -141,9 +148,9 @@ const authText = !mounted || loading ? "..." : user ? "Logout" : "Login";
        
       </div>
     </div>
-  </div>
+  
    </aside>
-</div>
+</>
  
    
   )

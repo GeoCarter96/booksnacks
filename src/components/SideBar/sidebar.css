@@ -575,7 +575,7 @@ input {
     height: 100%;
     background-color: #3a4649;
     transition: opacity .4s ease 0s;
-    z-index: 10;
+    z-index: 50;
     opacity: .65;
     pointer-events: auto
 }
@@ -593,8 +593,16 @@ input {
     top: 0;
     left: 0;
     height: 100vh;
-    z-index: 1000;
-    transition: all .3s
+    z-index: 100;
+    transition: transform 0.3s ease-in-out, visibility 0.3s;
+    transform: translateX(0);
+    visibility: visible;
+    
+}
+.sidebar--closed{
+    transform: translateX(-100%);
+   
+    pointer-events: none;
 }
 
 .sidebar__wrapper {
@@ -726,15 +734,34 @@ input {
 }
 
 @media (max-width: 768px) {
+   
     .sidebar {
-        transform:translateX(-100%)
+        transform: translateX(-100%);
+        width: 80%; 
+        visibility: hidden;
+    }
+
+.sidebar--opened {
+    transform: translateX(0) !important;
+    width: 80%;
+    visibility: visible;
+    pointer-events: auto;
+     box-shadow: 5px 0 15px rgba(0,0,0,0.2);
+}
+   .sidebar.sidebar--closed {
+        transform: translateX(-100%);
+        visibility: hidden;
+    }
+}
+@media (min-width: 769px) {
+    .sidebar {
+        
+        transform: translateX(0) !important;
+        visibility: visible !important;
+        pointer-events: auto !important;
     }
 }
 
-.sidebar--opened {
-    transform: translateX(0);
-    width: 80%
-}
 
 .selected__book {
     display: flex;
