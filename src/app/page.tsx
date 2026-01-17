@@ -10,7 +10,7 @@ import { useAuthState } from 'react-firebase-hooks/auth';
 import { auth } from './FirebaseItems/firebase';
 import { useRouter } from 'next/navigation';
 import HomeSkeleton from '@/components/Skeletons/HomeSkeleton';
-
+import { useModalStore } from '@/store/useModalStore';
 
 
 const headings = ['Enhance your knowledge', 'Achieve greater success',
@@ -23,8 +23,8 @@ const heading = ['Expand your learning', 'Accomplish your goals',
 const Home = () => {
  const [activeIndex, setActiveIndex] = useState(0);
     const [active, setActive] = useState(0)
-    const [isModalOpen, setIsModalOpen] = useState(false);
-    const [modalType, setModalType] = useState<"logIn" | "signUp">("logIn");
+    
+  const openModal = useModalStore((state) => state.openModal);
 const [mounted, setMounted] = useState(false);
     
   const [user, loading] = useAuthState(auth);
@@ -34,7 +34,7 @@ const [mounted, setMounted] = useState(false);
     if (user) {
       router.push('/for-you');
     } else {
-      setIsModalOpen(true);
+      openModal('logIn');
     }
   };
   useEffect(() => {
