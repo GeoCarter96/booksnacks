@@ -2254,18 +2254,19 @@ input {
 
 .search__input--wrapper {
   position: relative; 
-  width: 100%;
+  width: 50%;
 }
 
 .search-dropdown {
   position: absolute;
   top: 100%; 
   left: 0;
-  width: 100%;
+  width: 440px;
+  margin: 0 auto;
   background: white;
   border: 1px solid #e5e7eb;
   border-top: none;
-  max-height: 400px;
+  max-height: 440px;
    min-height: 50px;
   overflow-y: auto;
   z-index: 9999 !important; 

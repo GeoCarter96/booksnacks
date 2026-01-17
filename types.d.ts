@@ -15,5 +15,6 @@ summary: string;
 tags: string[];
 bookDescription: string;
 authorDescription: string;
+
 }
 
